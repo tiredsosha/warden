@@ -2,6 +2,7 @@ package mosquitto
 
 import (
 	"fmt"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -43,25 +44,32 @@ func StartBroker(data MqttConf) {
 	}
 
 	subscribe(conn, data)
-	go publish(conn, data)
-
+	publish(conn, data)
+	conn.Disconnect(250)
 }
 
 func publish(client mqtt.Client, data MqttConf) {
-	for 0 < 1 {
+	i := 0
+	for i < 1 {
+		// volume, err := sound.GetVolume()
+		// if err == nil {
 		volume, err := sound.GetVolume()
-		if err == nil {
-			token := client.Publish(data.PubTopic, 0, false, volume)
-			token.Wait()
-			time.Sleep(StateInterval)
-		}
+		fmt.Println(reflect.TypeOf(volume), err)
+
+		token := client.Publish(data.PubTopic, 0, false, "1")
+		token.Wait()
+		time.Sleep(time.Second)
+		// token := client.Publish(data.PubTopic, 0, false, volume)
+		// token.Wait()
+		// time.Sleep(StateInterval)
+		//}
 	}
 }
 
 func subscribe(client mqtt.Client, data MqttConf) {
 	token := client.Subscribe(data.SubTopic, 1, nil)
 	token.Wait()
-	fmt.Printf("Subscribed to topic: %s", data.SubTopic)
+	fmt.Printf("Subscribed to topic: %s\n", data.SubTopic)
 }
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msgHand mqtt.Message) {

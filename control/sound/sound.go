@@ -5,7 +5,7 @@ import (
 	"github.com/moutend/go-wca/pkg/wca"
 )
 
-func GetVolume() (uint8, error) {
+func GetVolume() (string, error) {
 	vol, err := invoke(func(aev *wca.IAudioEndpointVolume) (interface{}, error) {
 		var level float32
 		err := aev.GetMasterVolumeLevelScalar(&level)
@@ -15,9 +15,9 @@ func GetVolume() (uint8, error) {
 	})
 
 	if vol == nil {
-		return 0, err
+		return "0", err
 	}
-	return vol.(uint8), err
+	return vol.(string), err
 }
 
 func SetVolume(volume int) error {

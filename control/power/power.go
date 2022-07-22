@@ -9,7 +9,7 @@ func Reboot() {
 	var cmd string
 	cmd = "shutdown /f /t 5 /r"
 
-	exe := exec.Command(cmd)
+	exe := exec.Command("cmd", cmd)
 	err := exe.Run()
 
 	if err != nil {
@@ -21,7 +21,7 @@ func Shutdown() {
 	var cmd string
 	cmd = "shutdown /f /t 5"
 
-	exe := exec.Command(cmd)
+	exe := exec.Command("cmd", cmd)
 	err := exe.Run()
 
 	if err != nil {
