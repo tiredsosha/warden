@@ -2,8 +2,9 @@ package mosquitto
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
+	"strings"
+	"sync"
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -11,20 +12,22 @@ import (
 	"github.com/tiredsosha/wardener/control/sound"
 )
 
-const (
-	port          = 1883
-	KeyLifeTime   = 2  // minute
-	StateInterval = 10 // second
-)
-
 type MqttConf struct {
 	Id       string
 	Broker   string
 	Username string
 	Password string
-	SubTopic string
-	PubTopic string
 }
+
+const (
+	port          = 1883
+	KeyLifeTime   = 2  // minute
+	StateInterval = 10 // second
+	SubTopic      = "wardener/command/"
+	PubTopic      = "wardener/status/"
+)
+
+var wg sync.WaitGroup
 
 func StartBroker(data MqttConf) {
 	mqttHandler := mqtt.NewClientOptions().
@@ -43,38 +46,38 @@ func StartBroker(data MqttConf) {
 		panic(token.Error())
 	}
 
-	subscribe(conn, data)
-	publish(conn, data)
-	conn.Disconnect(250)
+	wg.Add(2)
+	go subscribe(conn, data)
+	go publish(conn, data)
+	wg.Wait()
+	// conn.Disconnect(250)
 }
 
 func publish(client mqtt.Client, data MqttConf) {
 	i := 0
 	for i < 1 {
-		// volume, err := sound.GetVolume()
-		// if err == nil {
 		volume, err := sound.GetVolume()
-		fmt.Println(reflect.TypeOf(volume), err)
+		if err == nil {
+			strVolume := strconv.Itoa(int(volume))
+			// fmt.Println(strVolume, err)
 
-		token := client.Publish(data.PubTopic, 0, false, "1")
-		token.Wait()
+			token := client.Publish(PubTopic+"volume", 0, false, strVolume)
+			token.Wait()
+		}
 		time.Sleep(time.Second)
-		// token := client.Publish(data.PubTopic, 0, false, volume)
-		// token.Wait()
-		// time.Sleep(StateInterval)
-		//}
 	}
 }
 
 func subscribe(client mqtt.Client, data MqttConf) {
-	token := client.Subscribe(data.SubTopic, 1, nil)
+	topic := SubTopic + "#"
+	token := client.Subscribe(topic, 1, nil)
 	token.Wait()
-	fmt.Printf("Subscribed to topic: %s\n", data.SubTopic)
+	fmt.Printf("Subscribed to topic: %s\n", topic)
 }
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msgHand mqtt.Message) {
 	topic := msgHand.Topic()
-	msg := string(msgHand.Payload())
+	msg := strings.TrimSpace(string(msgHand.Payload()))
 	executor(topic, msg)
 }
 
@@ -88,19 +91,19 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 
 func executor(topic, msg string) {
 	switch topic {
-	case "wardener/sound/volume":
+	case SubTopic + "volume":
 		intMsg, err := strconv.Atoi(msg)
 		if err == nil {
 			sound.SetVolume(intMsg)
 		}
-	case "wardener/sound/mute":
+	case SubTopic + "mute":
 		boolMsg, err := strconv.ParseBool(msg)
 		if err == nil {
 			sound.Mute(boolMsg)
 		}
-	case "wardener/power/shutdown":
+	case SubTopic + "shutdown":
 		power.Shutdown()
-	case "wardener/power/reboot":
+	case SubTopic + "reboot":
 		power.Reboot()
 	default:
 		fmt.Printf("%s recieved in %d\n", msg, topic)

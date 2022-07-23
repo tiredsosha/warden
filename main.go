@@ -46,8 +46,6 @@ func main() {
 		Broker:   cfg.Host,
 		Username: cfg.Username,
 		Password: cfg.Password,
-		SubTopic: "wardener/#",
-		PubTopic: "wardener/sound/status",
 	}
 	mosquitto.StartBroker(mqttData)
 }
