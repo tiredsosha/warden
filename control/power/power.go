@@ -6,25 +6,23 @@ import (
 )
 
 func Reboot() {
-	var cmd string
-	cmd = "shutdown /f /r"
+	cmd := "shutdown /f /r"
 
 	exe := exec.Command("cmd", "/C", cmd)
 	err := exe.Run()
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println("Can't reboot pc, error in Windows API")
 	}
 }
 
 func Shutdown() {
-	var cmd string
-	cmd = "shutdown /f"
+	cmd := "shutdown /f"
 
 	exe := exec.Command("cmd", "/C", cmd)
 	err := exe.Run()
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println("Can't shutdown pc, error in Windows API")
 	}
 }

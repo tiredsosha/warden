@@ -1,6 +1,9 @@
 package sound
 
 import (
+	"errors"
+	"log"
+
 	"github.com/go-ole/go-ole"
 	"github.com/moutend/go-wca/pkg/wca"
 )
@@ -10,30 +13,38 @@ func GetVolume() (uint8, error) {
 		var level float32
 		err := aev.GetMasterVolumeLevelScalar(&level)
 		volume := uint8(level*100.0 + 0.5)
-
 		return volume, err
 	})
 
-	if vol == nil {
+	if err != nil || vol == nil {
+		log.Println("Can't get volume level - Windows API doesn't responce")
+		err = errors.New("WIN API")
 		return 0, err
 	}
+
 	return vol.(uint8), err
 }
 
-func SetVolume(volume int) error {
+func SetVolume(volume int) {
 	_, err := invoke(func(aev *wca.IAudioEndpointVolume) (interface{}, error) {
 		err := aev.SetMasterVolumeLevelScalar(float32(volume)/100.0, nil)
 		return nil, err
 	})
-	return err
+
+	if err != nil {
+		log.Println("Can't set volume level - Windows API doesn't responce")
+	}
 }
 
-func Mute(state bool) error {
+func Mute(state bool) {
 	_, err := invoke(func(aev *wca.IAudioEndpointVolume) (interface{}, error) {
 		err := aev.SetMute(state, nil)
 		return nil, err
 	})
-	return err
+
+	if err != nil {
+		log.Println("Can't set mute - Windows API doesn't responce")
+	}
 }
 
 func invoke(f func(aev *wca.IAudioEndpointVolume) (interface{}, error)) (ret interface{}, err error) {

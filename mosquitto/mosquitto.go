@@ -2,6 +2,7 @@ package mosquitto
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"sync"
@@ -27,9 +28,9 @@ const (
 	PubTopic      = "wardener/status/"
 )
 
-var wg sync.WaitGroup
-
 func StartBroker(data MqttConf) {
+	var wg sync.WaitGroup
+
 	mqttHandler := mqtt.NewClientOptions().
 		AddBroker(fmt.Sprintf("tcp://%s:%d", data.Broker, port)).
 		SetClientID(data.Id).
@@ -43,24 +44,24 @@ func StartBroker(data MqttConf) {
 
 	conn := mqtt.NewClient(mqttHandler)
 	if token := conn.Connect(); token.Wait() && token.Error() != nil {
-		panic(token.Error())
+		log.Fatal("Can't connect to mqtt broker")
 	}
 
 	wg.Add(2)
 	go subscribe(conn, data)
 	go publish(conn, data)
 	wg.Wait()
-	// conn.Disconnect(250)
 }
 
 func publish(client mqtt.Client, data MqttConf) {
 	i := 0
 	for i < 1 {
 		volume, err := sound.GetVolume()
-		if err == nil {
-			strVolume := strconv.Itoa(int(volume))
-			// fmt.Println(strVolume, err)
+		if err != nil {
+			log.Println("Skiping 1 cycle of publishing")
+		} else {
 
+			strVolume := strconv.Itoa(int(volume))
 			token := client.Publish(PubTopic+"volume", 0, false, strVolume)
 			token.Wait()
 		}
@@ -72,7 +73,7 @@ func subscribe(client mqtt.Client, data MqttConf) {
 	topic := SubTopic + "#"
 	token := client.Subscribe(topic, 1, nil)
 	token.Wait()
-	fmt.Printf("Subscribed to topic: %s\n", topic)
+	log.Printf("Subscribed to topic: %s\n", topic)
 }
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msgHand mqtt.Message) {
@@ -82,11 +83,11 @@ var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msgHand mqt
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	fmt.Println("Connected")
+	log.Println("Connected to mqtt broker")
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	fmt.Printf("Connect lost: %v", err)
+	log.Fatal("Connection to mqtt broker is lost")
 }
 
 func executor(topic, msg string) {
@@ -95,17 +96,21 @@ func executor(topic, msg string) {
 		intMsg, err := strconv.Atoi(msg)
 		if err == nil {
 			sound.SetVolume(intMsg)
+		} else {
+			log.Println("Message must be in range of 0-100, skiping command")
 		}
 	case SubTopic + "mute":
 		boolMsg, err := strconv.ParseBool(msg)
 		if err == nil {
 			sound.Mute(boolMsg)
+		} else {
+			log.Println("Message must be true or false, skiping command")
 		}
 	case SubTopic + "shutdown":
 		power.Shutdown()
 	case SubTopic + "reboot":
 		power.Reboot()
 	default:
-		fmt.Printf("%s recieved in %d\n", msg, topic)
+		log.Printf("%s recieved in %d\n", msg, topic)
 	}
 }
