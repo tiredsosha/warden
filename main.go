@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -27,17 +26,25 @@ func getConf(file string, cnf interface{}) error {
 func getHostname() (hostname string) {
 	hostname, err := os.Hostname()
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Println("Can not get hostname")
+		hostname = "default"
 	}
-	fmt.Printf("Hostname: %s\n", hostname)
+	log.Printf("Hostname: %s\n", hostname)
 	return
 }
 
 func main() {
+	// If the file doesn't exist, create it or append to the file
+	file, err := os.OpenFile("wardener.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.SetOutput(file)
+	log.Println("Wardener started")
+
 	cfg := &conf{}
 	if err := getConf("config.yaml", cfg); err != nil {
-		log.Panicln(err)
+		log.Fatal("No config.yaml file in wardener.exe file")
 	}
 
 	hostname := getHostname()

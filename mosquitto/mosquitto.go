@@ -64,7 +64,7 @@ func publish(client mqtt.Client, data MqttConf) {
 			token := client.Publish(PubTopic+"volume", 0, false, strVolume)
 			token.Wait()
 		}
-		time.Sleep(time.Second)
+		time.Sleep(StateInterval * time.Second)
 	}
 }
 

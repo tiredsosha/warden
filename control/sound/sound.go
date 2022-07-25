@@ -74,7 +74,3 @@ func invoke(f func(aev *wca.IAudioEndpointVolume) (interface{}, error)) (ret int
 	ret, err = f(aev)
 	return
 }
-
-func main() {
-	GetVolume()
-}
