@@ -15,6 +15,9 @@
 # Test binary, built with `go test -c`
 *.test
 
+# Test folders
+/test/*
+
 # Logs
 *.log
 

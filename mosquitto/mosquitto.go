@@ -52,7 +52,8 @@ func StartBroker(data MqttConf) {
 
 	conn := mqtt.NewClient(mqttHandler)
 	if token := conn.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatal("Can't connect to mqtt broker")
+		log.Println("can't connect to mqtt broker")
+		log.Fatal(token.Error())
 	}
 
 	wg.Add(2)
@@ -66,7 +67,7 @@ func publish(client mqtt.Client, data MqttConf) {
 	for i < 1 {
 		volume, err := sound.GetVolume()
 		if err != nil {
-			log.Println("Skiping 1 cycle of publishing")
+			log.Println("skiping one cycle of publishing")
 		} else {
 			strVolume := strconv.Itoa(int(volume))
 			token := client.Publish(data.PubTopic+"volume", 0, false, strVolume)
@@ -80,15 +81,15 @@ func subscribe(client mqtt.Client, data MqttConf) {
 	topic := data.SubTopic + "#"
 	token := client.Subscribe(topic, 1, nil)
 	token.Wait()
-	log.Printf("Subscribed to topic: %s\n", topic)
+	log.Printf("subscribed to topic: %s\n", topic)
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	log.Println("Connected to mqtt broker")
+	log.Println("connected to mqtt broker")
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	log.Fatal("Connection to mqtt broker is lost")
+	log.Fatal("connection to mqtt broker is lost")
 }
 
 func executor(topic, msg, subPrefix string) {
@@ -99,14 +100,14 @@ func executor(topic, msg, subPrefix string) {
 		if err == nil {
 			sound.SetVolume(intMsg)
 		} else {
-			log.Println("Message must be in range of 0-100, skiping command")
+			log.Println("message must be in range of 0-100, skiping command")
 		}
 	case subPrefix + "mute":
 		boolMsg, err := strconv.ParseBool(msg)
 		if err == nil {
 			sound.Mute(boolMsg)
 		} else {
-			log.Println("Message must be true or false, skiping command")
+			log.Println("message must be true or false, skiping command")
 		}
 	case subPrefix + "shutdown":
 		power.Shutdown()

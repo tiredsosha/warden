@@ -12,7 +12,8 @@ func Reboot() {
 	err := exe.Run()
 
 	if err != nil {
-		log.Println("Can't reboot pc, error in Windows API")
+		log.Println("can't reboot pc, error in Windows API")
+		log.Println(err)
 	}
 }
 
@@ -23,6 +24,7 @@ func Shutdown() {
 	err := exe.Run()
 
 	if err != nil {
-		log.Println("Can't shutdown pc, error in Windows API")
+		log.Println("can't shutdown pc, error in Windows API")
+		log.Println(err)
 	}
 }

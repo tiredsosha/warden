@@ -17,8 +17,10 @@ func GetVolume() (uint8, error) {
 	})
 
 	if err != nil || vol == nil {
-		log.Println("Can't get volume level - Windows API doesn't responce")
-		err = errors.New("WIN API")
+		log.Println("can't get volume level - Windows API doesn't responce")
+		log.Println(err)
+		log.Printf("volume:%s\n", vol)
+		err = errors.New("WINAPI")
 		return 0, err
 	}
 
@@ -32,7 +34,8 @@ func SetVolume(volume int) {
 	})
 
 	if err != nil {
-		log.Println("Can't set volume level - Windows API doesn't responce")
+		log.Println("can't set volume level - Windows API doesn't responce")
+		log.Println(err)
 	}
 }
 
@@ -43,7 +46,8 @@ func Mute(state bool) {
 	})
 
 	if err != nil {
-		log.Println("Can't set mute - Windows API doesn't responce")
+		log.Println("can't set mute - Windows API doesn't responce")
+		log.Println(err)
 	}
 }
 
