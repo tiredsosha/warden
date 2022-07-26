@@ -1,5 +1,7 @@
 Wardener 1.0.1 Release Notes
 
+Fully working and tested release of project
+
 IMPROVEMENTS
 
 - Power managment of pc. Supported:
