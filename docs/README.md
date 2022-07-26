@@ -47,9 +47,6 @@ If you use source code:
 ├── .github
 ├── .gitignore
 ├── README.md
-├── go.mod
-├── go.sum
-├── main.go
 ├── docs
 │   └── README.md
 ├── control
@@ -65,14 +62,23 @@ If you use source code:
 
 A brief description of the layout:
 
+- `.github` has two template files for creating PR and issue. Please see the files for more details.
+- `.gitignore` varies per project, but all projects need to ignore `bin` directory.
+- `.golangci.yml` is the golangci-lint config file.
+- `Makefile` is used to build the project. **You need to tweak the variables based on your project**.
+- `CHANGELOG.md` contains auto-generated changelog information.
+- `OWNERS` contains owners of the project.
 - `README.md` is a detailed description of the project.
-- `go.mod` is a detailed reference manual for module system in this project.
-- `go.sum` is a detailed file of the checksum of direct and indirect dependency required by the module
-- `main.go` main file of programm.
+- `bin` is to hold build outputs.
+- `cmd` contains main packages, each subdirecoty of `cmd` is a main package.
+- `build` contains scripts, yaml files, dockerfiles, etc, to build and package the project.
 - `docs` for project documentations.
-- `control` contains main packages for interaction with Win 10 API, each subdirecoty of `control` is a main package.
-- `mosquitto` mqtt logic
-- `configs` contains example of config.yaml file.
+- `hack` contains scripts used to manage this repository, e.g. codegen, installation, verification, etc.
+- `pkg` places most of project business logic and locate `api` package.
+- `release` [chart](https://github.com/caicloud/charts) for production deployment.
+- `test` holds all tests (except unit tests), e.g. integration, e2e tests.
+- `third_party` for all third party libraries and tools, e.g. swagger ui, protocol buf, etc.
+- `vendor` contains all vendored code.
 
 ## Running
 
