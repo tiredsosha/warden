@@ -94,7 +94,7 @@ Configuration parameters must be placed in configuration files in the working di
 
 ### config.yaml
 
-Wardener will look for this file in the current working directory (directory from where you launched Wardener). Create **config.yaml** file and put desired parameters into it. Or just copy an exemple of this file from config folder in the repo.
+Wardener will look for this file in the current working directory (directory from where you launched Wardener). Create **config.yaml** file and put desired parameters into it. Or just copy an example of this file from config folder in the repo.
 
 Example file:
 
