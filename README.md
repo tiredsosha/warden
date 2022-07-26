@@ -67,7 +67,7 @@ A brief description of the layout:
 
 - `README.md` is a detailed description of the project.
 - `go.mod` is a detailed reference manual for module system in this project.
-- `go.sum` is a detailed file of the checksum of direct and indirect dependency required by the module
+- `go.sum` is a detailed file of the checksum of direct and indirect dependency required by the module.
 - `main.go` is main file of programm.
 - `docs` contains project documentations.
 - `control` contains main packages for interaction with Win 10 API, each subdirecoty of `control` is a main package.
