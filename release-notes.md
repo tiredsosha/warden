@@ -14,7 +14,7 @@ IMPROVEMENTS
 
 FIXES
 
-- Log formating we messege arrive
+- Log formating whem new message arrive
 
 ---
 
