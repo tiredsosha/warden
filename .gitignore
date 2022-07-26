@@ -18,6 +18,10 @@
 # Logs
 *.log
 
+# Configs
+*.yaml
+!configs/*
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
