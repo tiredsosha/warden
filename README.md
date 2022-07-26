@@ -120,7 +120,7 @@ Example valid message payloads:
 
 ### Status
 
-**Topic:** warden/status/volume<br>
+**Topic:** warden/PC_HOSTNAME/status/volume<br>
 **Payload:** int in range 0-100<br>
 **Persistent:** yes<br>
 
@@ -128,33 +128,35 @@ Send current mastem volume status every 2 minutes.
 
 ### Commands
 
-**Topic:** warden/commands/shutdown<br>
+**Topic:** warden/PC_HOSTNAME/commands/shutdown<br>
 **Payload:** -
 
 Trigger immediate system shutdown.
 
 ---
 
-**Topic:** warden/commands/reboot<br>
+**Topic:** warden/PC_HOSTNAME/commands/reboot<br>
 **Payload:** -
 
 Trigger immediate system reboot.
 
 ---
 
-**Topic:** warden/commands/volume<br>
+**Topic:** warden/PC_HOSTNAME/commands/volume<br>
 **Payload:** int in range 0-100<br>
 
 Trigger changes master volume of system.
 
 ---
 
-**Topic:** warden/commands/mute<br>
+**Topic:** warden/PC_HOSTNAME/commands/mute<br>
 **Payload:** boolean
 
 "true" - trigger mutes system volume. "false" - trigger unmutes system volume.
 
 ---
+
+- `PC_HOSTNAME` [is system name of your Windows pc](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/hostname).
 
 ## Building
 

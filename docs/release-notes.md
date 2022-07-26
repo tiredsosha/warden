@@ -1,3 +1,17 @@
+Warden 1.0.5 Release Notes
+
+IMPROVEMENTS
+
+- Period between publishing of the messages changed to 25s
+- README.md is changed
+- release-noted moved to new directory
+
+FIXES
+
+- Hostname now is part of MQTT Topic Prefix
+
+---
+
 Warden 1.0.3 Release Notes
 
 IMPROVEMENTS
