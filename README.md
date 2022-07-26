@@ -175,7 +175,7 @@ I will gladly add new staff, if anyone will request!
 
 ## Release notes
 
-[Releases note.md](https://github.com/tiredsosha/warden/docs/release-notes.md)
+[Changelog](https://github.com/tiredsosha/warden/blob/main/docs/release-notes.md)
 
 ## License
 
