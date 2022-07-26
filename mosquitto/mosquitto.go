@@ -16,7 +16,7 @@ import (
 const (
 	port          = 1883
 	KeyLifeTime   = 2  // minute
-	StateInterval = 10 // second
+	StateInterval = 25 // second
 )
 
 type MqttConf struct {

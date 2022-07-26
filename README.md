@@ -14,6 +14,7 @@
   - [Building](#building)
   - [Future](#future)
   - [Alternativies](#alternativies)
+  - [Release notes](#release-notes)
   - [License](#license)
 
 # Warden
@@ -169,6 +170,10 @@ I will gladly add new staff, if anyone will request!
 
 - [IOT Link](https://iotlink.gitlab.io/)
 - [Winthing](https://github.com/msiedlarek/winthing) **Winthing is no longer actively maintained.**
+
+## Release notes
+
+[Releases note.md](https://github.com/tiredsosha/warden/docs/release-notes.md)
 
 ## License
 
