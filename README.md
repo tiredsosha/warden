@@ -1,6 +1,6 @@
 **Table of Contents**
 
-- [Wardener](#wardener)
+- [Warden](#warden)
   - [Features](#features)
   - [Requirements](#requirements)
     - [Layout](#layout)
@@ -16,7 +16,7 @@
   - [Alternativies](#alternativies)
   - [License](#license)
 
-# Wardener
+# Warden
 
 A simple background service that remotely controls Windows over MQTT.
 
@@ -76,14 +76,14 @@ A brief description of the layout:
 
 ## Running
 
-Download either GO or EXE file from [Releases page](https://github.com/tiredsosha/wardener/releases) and execute it:
+Download either GO or EXE file from [Releases page](https://github.com/tiredsosha/warden/releases) and execute it:
 
     go run main.go
     main.exe
 
 ## Configuration
 
-Configuration parameters must be placed in configuration files in the working directory from where you launch Wardener.
+Configuration parameters must be placed in configuration files in the working directory from where you launch Warden.
 
 <table>
 <tr><th>Property</th><th>Description</th><th>Example</th>
@@ -94,7 +94,7 @@ Configuration parameters must be placed in configuration files in the working di
 
 ### config.yaml
 
-Wardener will look for this file in the current working directory (directory from where you launched Wardener). Create **config.yaml** file and put desired parameters into it. Or just copy an example of this file from config folder in the repo.
+Warden will look for this file in the current working directory (directory from where you launched Warden). Create **config.yaml** file and put desired parameters into it. Or just copy an example of this file from config folder in the repo.
 
 Example file:
 
@@ -104,7 +104,7 @@ Example file:
 
 ## Logging
 
-Wardener starts logging immediately after launch. It makes **wardener.log** file in the current working directory.
+Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory.
 
 ## Supported messages
 
@@ -119,7 +119,7 @@ Example valid message payloads:
 
 ### Status
 
-**Topic:** wardener/status/volume<br>
+**Topic:** warden/status/volume<br>
 **Payload:** int in range 0-100<br>
 **Persistent:** yes<br>
 
@@ -127,28 +127,28 @@ Send current mastem volume status every 2 minutes.
 
 ### Commands
 
-**Topic:** wardener/commands/shutdown<br>
+**Topic:** warden/commands/shutdown<br>
 **Payload:** -
 
 Trigger immediate system shutdown.
 
 ---
 
-**Topic:** wardener/commands/reboot<br>
+**Topic:** warden/commands/reboot<br>
 **Payload:** -
 
 Trigger immediate system reboot.
 
 ---
 
-**Topic:** wardener/commands/volume<br>
+**Topic:** warden/commands/volume<br>
 **Payload:** int in range 0-100<br>
 
 Trigger changes master volume of system.
 
 ---
 
-**Topic:** wardener/commands/mute<br>
+**Topic:** warden/commands/mute<br>
 **Payload:** boolean
 
 "true" - trigger mutes system volume. "false" - trigger unmutes system volume.
@@ -159,7 +159,7 @@ Trigger changes master volume of system.
 
 You can build it by yourself.
 
-    go build -o bin/wardener.exe -ldflags "-H windowsgui"
+    go build -o bin/warden.exe -ldflags "-H windowsgui"
 
 ## Future
 

@@ -1,4 +1,4 @@
-module github.com/tiredsosha/wardener
+module github.com/tiredsosha/warden
 
 go 1.18
 

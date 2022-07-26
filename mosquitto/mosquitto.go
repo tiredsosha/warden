@@ -9,8 +9,8 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/tiredsosha/wardener/control/power"
-	"github.com/tiredsosha/wardener/control/sound"
+	"github.com/tiredsosha/warden/control/power"
+	"github.com/tiredsosha/warden/control/sound"
 )
 
 type MqttConf struct {
@@ -24,8 +24,8 @@ const (
 	port          = 1883
 	KeyLifeTime   = 2  // minute
 	StateInterval = 10 // second
-	SubTopic      = "wardener/command/"
-	PubTopic      = "wardener/status/"
+	SubTopic      = "warden/command/"
+	PubTopic      = "warden/status/"
 )
 
 func StartBroker(data MqttConf) {

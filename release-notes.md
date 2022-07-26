@@ -1,12 +1,20 @@
-Wardener 1.0.2 Release Notes
+Warden 1.0.3 Release Notes
 
-FIXES
+IMPROVEMENTS
 
-- Log formating whem new message arrive
+- Name is changed to Warden
 
 ---
 
-Wardener 1.0.1 Release Notes
+Warden 1.0.2 Release Notes
+
+FIXES
+
+- Log formating when new message arrive
+
+---
+
+Warden 1.0.1 Release Notes
 
 Fully working and tested release of project
 
@@ -22,6 +30,6 @@ IMPROVEMENTS
 
 ---
 
-Wardener 1.0.0-alpha Pre-Release Notes
+Warden 1.0.0-alpha Pre-Release Notes
 
 PROTOTYPE RELEASE

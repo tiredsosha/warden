@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/tiredsosha/wardener/mosquitto"
+	"github.com/tiredsosha/warden/mosquitto"
 	"gopkg.in/yaml.v3"
 )
 
@@ -34,11 +34,11 @@ func getHostname() (hostname string) {
 }
 
 func logInit() {
-	file, err := os.OpenFile("wardener.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile("warden.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.SetOutput(os.Stdout)
 		log.SetOutput(os.Stderr)
-		log.Println("Can't open/make a wardener.log/ logging in console")
+		log.Println("Can't open/make a warden.log. Logging in console")
 
 	} else {
 		log.SetOutput(file)
@@ -49,11 +49,11 @@ func main() {
 	logInit()
 
 	log.Println("")
-	log.Println("Wardener started")
+	log.Println("warden started")
 
 	cfg := &conf{}
 	if err := getConf("config.yaml", cfg); err != nil {
-		log.Fatal("No config.yaml file in wardener.exe file")
+		log.Fatal("No config.yaml file in warden.exe file")
 	}
 
 	hostname := getHostname()
