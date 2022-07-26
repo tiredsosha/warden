@@ -57,11 +57,15 @@ func main() {
 	}
 
 	hostname := getHostname()
+	topicPrefix := "warden/" + hostname + "/"
+
 	mqttData := mosquitto.MqttConf{
 		Id:       hostname,
 		Broker:   cfg.Broker,
 		Username: cfg.Username,
 		Password: cfg.Password,
+		SubTopic: topicPrefix + "command/",
+		PubTopic: topicPrefix + "status/",
 	}
 	mosquitto.StartBroker(mqttData)
 }
