@@ -10,7 +10,7 @@ import (
 )
 
 type conf struct {
-	Host     string `yaml:"host"`
+	Broker   string `yaml:"broker"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 }
@@ -59,7 +59,7 @@ func main() {
 	hostname := getHostname()
 	mqttData := mosquitto.MqttConf{
 		Id:       hostname,
-		Broker:   cfg.Host,
+		Broker:   cfg.Broker,
 		Username: cfg.Username,
 		Password: cfg.Password,
 	}

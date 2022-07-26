@@ -1,2 +1,140 @@
-работает
-написать нормальный ридми
+# Wardener
+
+A simple background service that remotely controls Windows over MQTT.
+
+## Features
+
+- Control
+  - Mute/Unmute system
+  - Change volume level
+  - Reboot system
+  - Shutdown system
+- Publishing of current volume status
+- Works as a background proccess, so no pop-up windows and no need in nircmd
+
+## Requirements
+
+If you use binary file:
+
+- `Windows 10`
+
+If you use source code:
+
+- `Windows 10`
+- `Go 1.18 or greater`
+
+## Running
+
+Download either GO or EXE file from [Releases page](https://github.com/tiredsosha/wardener/releases) and execute it:
+
+    go run main.go
+    main.exe
+
+## Configuration
+
+Configuration parameters must be placed in configuration files in the working directory from where you launch Wardener.
+
+<table>
+<tr><th>Property</th><th>Description</th><th>Example</th>
+<tr><td>broker</td><td>URL of the MQTT broker to use</td><td>127.0.0.1</td></tr>
+<tr><td>username</td><td>Username used when connecting to MQTT broker</td><td>admin</td></tr>
+<tr><td>password</td><td>Password used when connecting to MQTT broker</td><td>password</td></tr>
+</table>
+
+### config.yaml
+
+Wardener will look for this file in the current working directory (directory from where you launched Wardener). Create **config.yaml** file and put desired parameters into it.
+
+Example file:
+
+    broker: 127.0.0.1
+    username: admin
+    password: password
+
+## Logging
+
+Wardener starts logging immediately after launch. It makes **wardener.log** file in the current working directory.
+
+## Supported messages
+
+The payload of all messages is either raw string or a valid JSON element (possibly a primitive, like a single integer).
+
+Example valid message payloads:
+
+- `0`
+- `100`
+- `true`
+- `test string`
+
+### Broadcast status
+
+#### System
+
+**Topic:** wardener/status/volume<br>
+**Payload:** int in range 0-100<br>
+**Persistent:** yes<br>
+
+Send current mastem volume status every 2 minutes.
+
+### Commands
+
+#### System
+
+**Topic:** wardener/commands/shutdown<br>
+**Payload:** -
+
+Trigger immediate system shutdown.
+
+---
+
+**Topic:** wardener/commands/reboot<br>
+**Payload:** -
+
+Trigger immediate system reboot.
+
+---
+
+**Topic:** wardener/commands/volume<br>
+**Payload:** int in range 0-100<br>
+
+Trigger changes master volume of system.
+
+---
+
+**Topic:** wardener/commands/mute<br>
+**Payload:** boolean
+
+"true" - trigger mutes system volume. "false" - trigger unmutes system volume.
+
+---
+
+## Building
+
+You can build it by yourself.
+
+    go build -o bin/wardener.exe -ldflags "-H windowsgui"
+
+## Future
+
+I will gladly add new staff, if anyone will request!
+
+## Alternativies
+
+- [IOT Link](https://iotlink.gitlab.io/)
+- [Winthing](https://github.com/msiedlarek/winthing) **Winthing is no longer actively maintained.**
+
+## License
+
+Copyright 2022 Alexandra Chichko &lt;tiredsosha@gmail.com&gt;
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at
+
+> http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

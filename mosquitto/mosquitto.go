@@ -91,6 +91,7 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 }
 
 func executor(topic, msg string) {
+	log.Printf("%s recieved in %q\n", msg, topic)
 	switch topic {
 	case SubTopic + "volume":
 		intMsg, err := strconv.Atoi(msg)
@@ -110,7 +111,5 @@ func executor(topic, msg string) {
 		power.Shutdown()
 	case SubTopic + "reboot":
 		power.Reboot()
-	default:
-		log.Printf("%s recieved in %d\n", msg, topic)
 	}
 }
