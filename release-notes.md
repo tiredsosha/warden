@@ -14,6 +14,8 @@ FIXES
 
 - Log formating we messege arrive
 
+---
+
 Wardener 1.0.0-alpha Pre-Release Notes
 
 PROTOTYPE RELEASE
