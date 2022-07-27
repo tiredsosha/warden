@@ -2,8 +2,8 @@
 
 - [Warden](#warden)
   - [Features](#features)
-  - [Requirements](#requirements)
     - [Layout](#layout)
+  - [Requirements](#requirements)
   - [Running](#running)
   - [Configuration](#configuration)
     - [config.yaml](#config.yaml)
@@ -30,17 +30,8 @@ A simple background service that remotely controls Windows over MQTT.
   - Shutdown system
 - Publishing of current volume status
 - Works as a background proccess, so no pop-up windows and no need in nircmd
-
-## Requirements
-
-If you use binary file:
-
-- `Windows 10`
-
-If you use source code:
-
-- `Windows 10`
-- `Go 1.18 or greater`
+- Pretty easy configuration and installation
+- Configuration validation and full debug
 
 ### Layout
 
@@ -58,6 +49,11 @@ If you use source code:
 │   │   └── power.go
 │   └── sound
 │       └── sound.go
+├── tools
+│   ├── configurator
+│   │   └── configurator.go
+│   └── logger
+│       └── logger.go
 ├── mosquitto
 │   └── mosquitto.go
 └── configs
@@ -73,7 +69,19 @@ A brief description of the layout:
 - `docs` contains project documentations.
 - `control` contains main packages for interaction with Win 10 API, each subdirecoty of `control` is a main package.
 - `mosquitto` contains mqtt logic package.
+- `tools` contains yaml `configurator` and `logger` packages.
 - `configs` contains example of config.yaml file.
+
+## Requirements
+
+If you use binary file:
+
+- `Windows 10`
+
+If you use source code:
+
+- `Windows 10`
+- `Go 1.18 or greater`
 
 ## Running
 
@@ -105,7 +113,8 @@ Example file:
 
 ## Logging
 
-Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory.
+Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory.  
+![Snipset of log file](./docs/media/log.png)
 
 ## Supported messages
 
@@ -175,7 +184,7 @@ I will gladly add new staff, if anyone will request!
 
 ## Release notes
 
-[Changelog](https://github.com/tiredsosha/warden/blob/main/docs/release-notes.md)
+[Changelog](./docs/release-notes.md)
 
 ## License
 

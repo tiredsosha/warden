@@ -1,60 +1,31 @@
 package main
 
 import (
-	"io/ioutil"
-	"log"
 	"os"
 
 	"github.com/tiredsosha/warden/mosquitto"
-	"gopkg.in/yaml.v3"
+	config "github.com/tiredsosha/warden/tools/configurator"
+	"github.com/tiredsosha/warden/tools/logger"
 )
-
-type conf struct {
-	Broker   string `yaml:"broker"`
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-}
-
-func getConf(file string, cnf interface{}) error {
-	yamlFile, err := ioutil.ReadFile(file)
-	if err == nil {
-		err = yaml.Unmarshal(yamlFile, cnf)
-	}
-	return err
-}
 
 func getHostname() (hostname string) {
 	hostname, err := os.Hostname()
 	if err != nil {
-		log.Println("Can not get hostname")
+		logger.Warn.Println("can't get hostname")
+		logger.Warn.Println(err)
 		hostname = "default"
 	}
-	log.Printf("Hostname: %s\n", hostname)
+	logger.Info.Printf("hostname is %s\n", hostname)
 	return
 }
 
-func logInit() {
-	file, err := os.OpenFile("warden.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		log.SetOutput(os.Stdout)
-		log.SetOutput(os.Stderr)
-		log.Println("Can't open/make a warden.log. Logging in console")
-
-	} else {
-		log.SetOutput(file)
-	}
-}
-
 func main() {
-	logInit()
+	logger.LogInit()
 
-	log.Println("")
-	log.Println("warden started")
+	logger.Info.Println("")
+	logger.Info.Println("WARDEN STARTED")
 
-	cfg := &conf{}
-	if err := getConf("config.yaml", cfg); err != nil {
-		log.Fatal("No config.yaml file in warden.exe file")
-	}
+	cfg := config.ConfInit()
 
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
