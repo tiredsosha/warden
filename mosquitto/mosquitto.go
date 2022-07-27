@@ -2,7 +2,6 @@ package mosquitto
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 	"sync"
@@ -11,6 +10,7 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/tiredsosha/warden/control/power"
 	"github.com/tiredsosha/warden/control/sound"
+	"github.com/tiredsosha/warden/tools/logger"
 )
 
 const (
@@ -52,8 +52,8 @@ func StartBroker(data MqttConf) {
 
 	conn := mqtt.NewClient(mqttHandler)
 	if token := conn.Connect(); token.Wait() && token.Error() != nil {
-		log.Println("can't connect to mqtt broker")
-		log.Fatal(token.Error())
+		logger.Error.Printf("mqtt: can't connect to mqtt broker - %s\n", token.Error())
+		logger.Error.Fatal("EXITING")
 	}
 
 	wg.Add(2)
@@ -67,7 +67,7 @@ func publish(client mqtt.Client, data MqttConf) {
 	for i < 1 {
 		volume, err := sound.GetVolume()
 		if err != nil {
-			log.Println("skiping one cycle of publishing")
+			logger.Warn.Println("skiping one cycle of publishing")
 		} else {
 			strVolume := strconv.Itoa(int(volume))
 			token := client.Publish(data.PubTopic+"volume", 0, false, strVolume)
@@ -81,33 +81,34 @@ func subscribe(client mqtt.Client, data MqttConf) {
 	topic := data.SubTopic + "#"
 	token := client.Subscribe(topic, 1, nil)
 	token.Wait()
-	log.Printf("subscribed to topic: %s\n", topic)
+	logger.Info.Printf("subscribed to %q\n", topic)
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-	log.Println("connected to mqtt broker")
+	logger.Info.Println("connection to mqtt broker is successful")
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	log.Fatal("connection to mqtt broker is lost")
+	logger.Error.Println("connection to mqtt broker is lost")
+	logger.Error.Fatal("EXITING")
 }
 
 func executor(topic, msg, subPrefix string) {
-	log.Printf("%s recieved in %q\n", msg, topic)
+	logger.Info.Printf("%s recieved in %q\n", msg, topic)
 	switch topic {
 	case subPrefix + "volume":
 		intMsg, err := strconv.Atoi(msg)
 		if err == nil {
 			sound.SetVolume(intMsg)
 		} else {
-			log.Println("message must be in range of 0-100, skiping command")
+			logger.Warn.Println("message must be in range of 0-100, skiping command")
 		}
 	case subPrefix + "mute":
 		boolMsg, err := strconv.ParseBool(msg)
 		if err == nil {
 			sound.Mute(boolMsg)
 		} else {
-			log.Println("message must be true or false, skiping command")
+			logger.Warn.Println("message must be true or false, skiping command")
 		}
 	case subPrefix + "shutdown":
 		power.Shutdown()

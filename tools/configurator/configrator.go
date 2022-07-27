@@ -3,9 +3,9 @@ package configurator
 import (
 	"errors"
 	"io/ioutil"
-	"log"
 	"reflect"
 
+	"github.com/tiredsosha/warden/tools/logger"
 	"gopkg.in/yaml.v3"
 )
 
@@ -43,10 +43,12 @@ func validateConf(cfg *conf) error {
 func ConfInit() *conf {
 	cfg := &conf{}
 	if err := getConf("config.yaml", cfg); err != nil {
-		log.Fatal(err)
+		logger.Error.Println(err)
+		logger.Error.Fatal("EXITING")
 	}
 	if err := validateConf(cfg); err != nil {
-		log.Fatal(err)
+		logger.Error.Println(err)
+		logger.Error.Fatal("EXITING")
 	}
 	return cfg
 }

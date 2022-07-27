@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	WarningLogger *log.Logger
-	InfoLogger    *log.Logger
-	ErrorLogger   *log.Logger
+	Warn  *log.Logger
+	Info  *log.Logger
+	Error *log.Logger
 )
 
 func LogInit() {
@@ -21,7 +21,7 @@ func LogInit() {
 	} else {
 		log.SetOutput(file)
 	}
-	InfoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime)
-	WarningLogger = log.New(file, "WARNING: ", log.Ldate|log.Ltime)
-	ErrorLogger = log.New(file, "ERROR: ", log.Ldate|log.Ltime)
+	Info = log.New(file, "INFO: ", log.Ldate|log.Ltime)
+	Warn = log.New(file, "WARNING: ", log.Ldate|log.Ltime)
+	Error = log.New(file, "ERROR: ", log.Ldate|log.Ltime)
 }

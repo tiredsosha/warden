@@ -16,7 +16,8 @@
 *.test
 
 # Test folders
-/test/*
+/test/
+/bin/
 
 # Logs
 *.log

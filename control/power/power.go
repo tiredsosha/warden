@@ -1,8 +1,9 @@
 package power
 
 import (
-	"log"
 	"os/exec"
+
+	"github.com/tiredsosha/warden/tools/logger"
 )
 
 func Reboot() {
@@ -12,8 +13,8 @@ func Reboot() {
 	err := exe.Run()
 
 	if err != nil {
-		log.Println("can't reboot pc, error in Windows API")
-		log.Println(err)
+		logger.Warn.Println("can't reboot pc, error in Windows API")
+		logger.Warn.Println(err)
 	}
 }
 
@@ -24,7 +25,7 @@ func Shutdown() {
 	err := exe.Run()
 
 	if err != nil {
-		log.Println("can't shutdown pc, error in Windows API")
-		log.Println(err)
+		logger.Warn.Println("can't shutdown pc, error in Windows API")
+		logger.Warn.Println(err)
 	}
 }

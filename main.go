@@ -1,28 +1,31 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/tiredsosha/warden/mosquitto"
+	config "github.com/tiredsosha/warden/tools/configurator"
+	"github.com/tiredsosha/warden/tools/logger"
 )
 
 func getHostname() (hostname string) {
 	hostname, err := os.Hostname()
 	if err != nil {
-		log.Println("can't get hostname")
+		logger.Warn.Println("can't get hostname")
+		logger.Warn.Println(err)
 		hostname = "default"
 	}
-	log.Printf("hostname: %s\n", hostname)
+	logger.Info.Printf("hostname is %s\n", hostname)
 	return
 }
 
 func main() {
-	LogInit()
-	cfg := ConfInit()
+	logger.LogInit()
 
-	log.Println("")
-	log.Println("WARDEN STARTED")
+	logger.Info.Println("")
+	logger.Info.Println("WARDEN STARTED")
+
+	cfg := config.ConfInit()
 
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
@@ -36,8 +39,4 @@ func main() {
 		PubTopic: topicPrefix + "status/",
 	}
 	mosquitto.StartBroker(mqttData)
-}
-
-func ConfInit() {
-	panic("unimplemented")
 }
