@@ -19,6 +19,8 @@ const (
 	StateInterval = 25 // second
 )
 
+type pubFunc func() (string, error)
+
 type MqttConf struct {
 	Id       string
 	Broker   string
@@ -48,7 +50,8 @@ func StartBroker(data MqttConf) {
 		SetDefaultPublishHandler(messagePubHandler).
 		SetConnectionLostHandler(connectLostHandler).
 		SetOnConnectHandler(connectHandler).
-		SetKeepAlive(KeyLifeTime)
+		SetKeepAlive(KeyLifeTime).
+		SetWill(data.PubTopic+"online", "false", 2, true)
 
 	conn := mqtt.NewClient(mqttHandler)
 	if token := conn.Connect(); token.Wait() && token.Error() != nil {
@@ -56,25 +59,27 @@ func StartBroker(data MqttConf) {
 		logger.Error.Fatal("EXITING")
 	}
 
-	wg.Add(2)
+	wg.Add(3)
 	go subscribe(conn, data)
-	go publish(conn, data)
+	go publish(conn, data.PubTopic+"volume", VolStatus)
+	go publish(conn, data.PubTopic+"online", PcStatus)
 	wg.Wait()
 }
 
-func publish(client mqtt.Client, data MqttConf) {
+func publish(client mqtt.Client, topic string, f pubFunc) {
 	i := 0
 	for i < 1 {
-		volume, err := sound.GetVolume()
+		data, err := f()
 		if err != nil {
 			logger.Warn.Println("skiping one cycle of publishing")
+			logger.Warn.Println(err)
 		} else {
-			strVolume := strconv.Itoa(int(volume))
-			token := client.Publish(data.PubTopic+"volume", 0, false, strVolume)
+			token := client.Publish(topic, 0, false, data)
 			token.Wait()
 		}
 		time.Sleep(StateInterval * time.Second)
 	}
+
 }
 
 func subscribe(client mqtt.Client, data MqttConf) {
@@ -89,7 +94,7 @@ var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	logger.Error.Println("connection to mqtt broker is lost")
+	logger.Error.Println("mqtt: connection to mqtt broker is lost")
 	logger.Error.Fatal("EXITING")
 }
 

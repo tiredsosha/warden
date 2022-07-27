@@ -133,7 +133,16 @@ Example valid message payloads:
 **Payload:** int in range 0-100<br>
 **Persistent:** yes<br>
 
-Send current mastem volume status every 2 minutes.
+Send current mastem volume status every 25 seconds.
+
+---
+
+**Topic:** warden/PC_HOSTNAME/status/online<br>
+**Payload:** bool<br>
+**Persistent:** yes<br>
+
+Send current client status every 25 seconds.  
+true - alive, false - dead.
 
 ### Commands
 
