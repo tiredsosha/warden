@@ -3,8 +3,8 @@ Warden 1.1.0 Release Notes
 IMPROVEMENTS
 
 - Custom logger package
-- Cutsom yaml configuration package
-- Full fatal errors now in warden.log
+- Custom yaml configuration package
+- Fatal errors traceback now in warden.log
 - Config.yaml validation
 
 ---
