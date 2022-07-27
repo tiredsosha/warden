@@ -8,8 +8,6 @@ require (
 	github.com/moutend/go-wca v0.2.0
 )
 
-require github.com/sirupsen/logrus v1.9.0 // indirect
-
 require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
