@@ -2,8 +2,8 @@
 
 - [Warden](#warden)
   - [Features](#features)
-  - [Requirements](#requirements)
     - [Layout](#layout)
+  - [Requirements](#requirements)
   - [Running](#running)
   - [Configuration](#configuration)
     - [config.yaml](#config.yaml)
@@ -32,17 +32,6 @@ A simple background service that remotely controls Windows over MQTT.
 - Works as a background proccess, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
 - Configuration validation and full debug
-
-## Requirements
-
-If you use binary file:
-
-- `Windows 10`
-
-If you use source code:
-
-- `Windows 10`
-- `Go 1.18 or greater`
 
 ### Layout
 
@@ -83,6 +72,17 @@ A brief description of the layout:
 - `tools` contains yaml `configurator` and `logger` packages.
 - `configs` contains example of config.yaml file.
 
+## Requirements
+
+If you use binary file:
+
+- `Windows 10`
+
+If you use source code:
+
+- `Windows 10`
+- `Go 1.18 or greater`
+
 ## Running
 
 Download either GO or EXE file from [Releases page](https://github.com/tiredsosha/warden/releases) and execute it:
@@ -114,7 +114,7 @@ Example file:
 ## Logging
 
 Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory.  
-![Snipset of log file](./docs/media/plot.png)
+![Snipset of log file](./docs/media/log.png)
 
 ## Supported messages
 
