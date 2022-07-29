@@ -15,7 +15,7 @@ IMPROVEMENTS
 
 - Custom logger package
 - Custom yaml configuration package
-- Full fatal errors now in warden.log
+- Fatal errors traceback now in warden.log
 - Config.yaml validation
 
 ---
