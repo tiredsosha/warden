@@ -35,7 +35,7 @@ func main() {
 		Broker:   cfg.Broker,
 		Username: cfg.Username,
 		Password: cfg.Password,
-		SubTopic: topicPrefix + "command/",
+		SubTopic: topicPrefix + "commands/",
 		PubTopic: topicPrefix + "status/",
 	}
 	mosquitto.StartBroker(mqttData)
