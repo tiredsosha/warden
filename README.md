@@ -56,7 +56,9 @@ A simple background service that remotely controls Windows over MQTT.
 │   └── logger
 │       └── logger.go
 ├── mosquitto
-│   └── mosquitto.go
+│   ├── mosquitto.go
+│   │  
+│   └── sensors.go
 └── configs
     └── config.yaml
 ```
