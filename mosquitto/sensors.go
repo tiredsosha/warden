@@ -6,13 +6,13 @@ import (
 	"github.com/tiredsosha/warden/control/sound"
 )
 
-func VolStatus() (string, error) {
+func VolumeStatus() (string, error) {
 	volume, err := sound.GetVolume()
 	status := strconv.Itoa(int(volume))
 	return status, err
 }
 
-func PcStatus() (string, error) {
+func ConnectStatus() (string, error) {
 	var err error
 	status := "true"
 	return status, err

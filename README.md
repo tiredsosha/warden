@@ -32,6 +32,7 @@ A simple background service that remotely controls Windows over MQTT.
 - Works as a background proccess, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
 - Configuration validation and full debug
+- Autoreconnection to MQTT Broker
 
 ### Layout
 
@@ -129,11 +130,15 @@ Example valid message payloads:
 
 ### Status
 
+- `PC_HOSTNAME` [is system name of your Windows pc](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/hostname).
+
+---
+
 **Topic:** warden/PC_HOSTNAME/status/volume<br>
 **Payload:** int in range 0-100<br>
-**Persistent:** yes<br>
+**Persistent:** no<br>
 
-Send current mastem volume status every 25 seconds.
+Send current mastem volume status every 5 seconds.
 
 ---
 
@@ -141,10 +146,16 @@ Send current mastem volume status every 25 seconds.
 **Payload:** bool<br>
 **Persistent:** yes<br>
 
-Send current client status every 25 seconds.  
+Send current client status every 30 seconds.  
 true - alive, false - dead.
 
+---
+
 ### Commands
+
+- `PC_HOSTNAME` [is system name of your Windows pc](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/hostname).
+
+---
 
 **Topic:** warden/PC_HOSTNAME/commands/shutdown<br>
 **Payload:** -
@@ -173,8 +184,6 @@ Trigger changes master volume of system.
 "true" - trigger mutes system volume. "false" - trigger unmutes system volume.
 
 ---
-
-- `PC_HOSTNAME` [is system name of your Windows pc](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/hostname).
 
 ## Building
 
