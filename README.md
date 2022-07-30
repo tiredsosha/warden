@@ -1,27 +1,24 @@
-# Warden
-
 ![Snipset of log file](./docs/media/warden_crop.png)
 
 A simple background service that remotely controls Windows over MQTT.
 
 **Table of Contents**
 
-- [Warden](#warden)
-  - [Features](#features)
-    - [Layout](#layout)
-  - [Requirements](#requirements)
-  - [Running](#running)
-  - [Configuration](#configuration)
-    - [config.yaml](#config.yaml)
-  - [Logging](#logging)
-  - [Supported messages](#supported-messages)
-    - [Status](#status)
-    - [Commands](#commands)
-  - [Building](#building)
-  - [Future](#future)
-  - [Alternativies](#alternativies)
-  - [Release notes](#release-notes)
-  - [License](#license)
+- [Features](#features)
+  - [Layout](#layout)
+- [Requirements](#requirements)
+- [Running](#running)
+- [Configuration](#configuration)
+  - [config.yaml](#config.yaml)
+- [Logging](#logging)
+- [Supported messages](#supported-messages)
+  - [Status](#status)
+  - [Commands](#commands)
+- [Building](#building)
+- [Future](#future)
+- [Alternativies](#alternativies)
+- [Release notes](#release-notes)
+- [License](#license)
 
 ## Features
 
