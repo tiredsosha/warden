@@ -1,3 +1,9 @@
+# Warden
+
+![Snipset of log file](./docs/media/warden.png)
+
+A simple background service that remotely controls Windows over MQTT.
+
 **Table of Contents**
 
 - [Warden](#warden)
@@ -16,10 +22,6 @@
   - [Alternativies](#alternativies)
   - [Release notes](#release-notes)
   - [License](#license)
-
-# Warden
-
-A simple background service that remotely controls Windows over MQTT.
 
 ## Features
 
@@ -136,19 +138,19 @@ Example valid message payloads:
 
 ---
 
-**Topic:** warden/PC_HOSTNAME/status/volume<br>
-**Payload:** int in range 0-100<br>
-**Persistent:** no<br>
-
-Send current master volume status every 5 seconds.
-
----
-
 **Topic:** warden/PC_HOSTNAME/status/online<br>
 **Payload:** bool<br>
 **Persistent:** yes<br>
 
 true - alive, false - dead.
+
+---
+
+**Topic:** warden/PC_HOSTNAME/status/volume<br>
+**Payload:** int in range 0-100<br>
+**Persistent:** no<br>
+
+Send current master volume status every 5 seconds.
 
 ---
 

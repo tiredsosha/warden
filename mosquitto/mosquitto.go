@@ -23,7 +23,7 @@ const (
 type pubFunc func() (string, error)
 
 type MqttConf struct {
-	Id       string
+	ID       string
 	Broker   string
 	Username string
 	Password string
@@ -63,7 +63,7 @@ func StartBroker(data MqttConf) {
 	// MQTT INIT //
 	mqttHandler := mqtt.NewClientOptions().
 		AddBroker(fmt.Sprintf("tcp://%s:%d", data.Broker, port)).
-		SetClientID(data.Id).
+		SetClientID(data.ID).
 		SetUsername(data.Username).
 		SetPassword(data.Password).
 		SetAutoReconnect(true).
