@@ -1,6 +1,6 @@
 # Warden
 
-![Snipset of log file](./docs/media/warden.png)
+![Snipset of log file](./docs/media/warden_crop.png)
 
 A simple background service that remotely controls Windows over MQTT.
 
