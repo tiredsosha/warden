@@ -31,7 +31,7 @@ func main() {
 	topicPrefix := "warden/" + hostname + "/"
 
 	mqttData := mosquitto.MqttConf{
-		Id:       hostname,
+		ID:       hostname,
 		Broker:   cfg.Broker,
 		Username: cfg.Username,
 		Password: cfg.Password,

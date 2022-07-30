@@ -1,3 +1,11 @@
+Warden 1.1.2 Release Notes
+
+IMPROVEMENTS
+
+- Changed way to send online status
+
+---
+
 Warden 1.1.1 Release Notes
 
 IMPROVEMENTS

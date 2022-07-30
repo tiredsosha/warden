@@ -1,25 +1,24 @@
-**Table of Contents**
-
-- [Warden](#warden)
-  - [Features](#features)
-    - [Layout](#layout)
-  - [Requirements](#requirements)
-  - [Running](#running)
-  - [Configuration](#configuration)
-    - [config.yaml](#config.yaml)
-  - [Logging](#logging)
-  - [Supported messages](#supported-messages)
-    - [Status](#status)
-    - [Commands](#commands)
-  - [Building](#building)
-  - [Future](#future)
-  - [Alternativies](#alternativies)
-  - [Release notes](#release-notes)
-  - [License](#license)
-
-# Warden
+![Snipset of log file](./docs/media/warden_crop.png)
 
 A simple background service that remotely controls Windows over MQTT.
+
+**Table of Contents**
+
+- [Features](#features)
+  - [Layout](#layout)
+- [Requirements](#requirements)
+- [Running](#running)
+- [Configuration](#configuration)
+  - [config.yaml](#config.yaml)
+- [Logging](#logging)
+- [Supported messages](#supported-messages)
+  - [Status](#status)
+  - [Commands](#commands)
+- [Building](#building)
+- [Future](#future)
+- [Alternativies](#alternativies)
+- [Release notes](#release-notes)
+- [License](#license)
 
 ## Features
 
@@ -29,7 +28,7 @@ A simple background service that remotely controls Windows over MQTT.
   - Reboot system
   - Shutdown system
 - Publishing of current volume status
-- Works as a background proccess, so no pop-up windows and no need in nircmd
+- Works as a background process, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
 - Configuration validation and full debug
 - Autoreconnection to MQTT Broker
@@ -70,7 +69,7 @@ A brief description of the layout:
 - `go.sum` is a detailed file of the checksum of direct and indirect dependency required by the module.
 - `main.go` is main file of programm.
 - `docs` contains project documentations.
-- `control` contains main packages for interaction with Win 10 API, each subdirecoty of `control` is a main package.
+- `control` contains main packages for interaction with Win 10 API, each subdirectory of `control` is a main package.
 - `mosquitto` contains mqtt logic package.
 - `tools` contains yaml `configurator` and `logger` packages.
 - `configs` contains example of config.yaml file.
@@ -136,19 +135,19 @@ Example valid message payloads:
 
 ---
 
-**Topic:** warden/PC_HOSTNAME/status/volume<br>
-**Payload:** int in range 0-100<br>
-**Persistent:** no<br>
-
-Send current master volume status every 5 seconds.
-
----
-
 **Topic:** warden/PC_HOSTNAME/status/online<br>
 **Payload:** bool<br>
 **Persistent:** yes<br>
 
 true - alive, false - dead.
+
+---
+
+**Topic:** warden/PC_HOSTNAME/status/volume<br>
+**Payload:** int in range 0-100<br>
+**Persistent:** no<br>
+
+Send current master volume status every 5 seconds.
 
 ---
 
@@ -194,7 +193,7 @@ You can build it by yourself.
 
 ## Future
 
-I will gladly add new staff, if anyone will request!
+I will gladly add new stuff, if anyone will request!
 
 ## Alternativies
 
