@@ -12,8 +12,11 @@ func VolumeStatus() (string, error) {
 	return status, err
 }
 
-func ConnectStatus() (string, error) {
-	var err error
-	status := "true"
+/*
+default sensor func shoud look like it:
+
+func ...Status() (string, error) {
+	status, err := your function
 	return status, err
 }
+*/
