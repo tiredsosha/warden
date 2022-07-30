@@ -3,7 +3,6 @@ Warden 1.1.1 Release Notes
 IMPROVEMENTS
 
 - Autoreconnection when connection to broker is lost/broker is offline
-- More future-forward way to add publishers anf sensors
 - Added scalable publisher solution
 - No more exit(1) when mqtt lost connection
 

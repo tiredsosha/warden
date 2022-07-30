@@ -51,6 +51,7 @@ func Mute(state bool) {
 	}
 }
 
+// CONNECTION TO WINDOWS API //
 func invoke(f func(aev *wca.IAudioEndpointVolume) (interface{}, error)) (ret interface{}, err error) {
 	if err = ole.CoInitializeEx(0, ole.COINIT_APARTMENTTHREADED); err != nil {
 		return

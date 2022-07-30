@@ -140,7 +140,7 @@ Example valid message payloads:
 **Payload:** int in range 0-100<br>
 **Persistent:** no<br>
 
-Send current mastem volume status every 5 seconds.
+Send current master volume status every 5 seconds.
 
 ---
 
@@ -148,7 +148,6 @@ Send current mastem volume status every 5 seconds.
 **Payload:** bool<br>
 **Persistent:** yes<br>
 
-Send current client status every 30 seconds.  
 true - alive, false - dead.
 
 ---

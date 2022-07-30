@@ -14,11 +14,10 @@ import (
 )
 
 const (
-	port           = 1883
-	keyLifeTime    = 2  // minute
-	reconnTime     = 20 // sec
-	pubVolumeTime  = 5
-	pubConnectTime = 30
+	port          = 1883
+	keyLifeTime   = 2  // minute
+	reconnTime    = 20 // sec
+	pubVolumeTime = 5
 )
 
 type pubFunc func() (string, error)
@@ -35,7 +34,7 @@ type MqttConf struct {
 func (data *MqttConf) messageHandler(client mqtt.Client, msgHand mqtt.Message) {
 	topic := msgHand.Topic()
 	msg := strings.TrimSpace(string(msgHand.Payload()))
-	executor(topic, msg, data.SubTopic)
+	executorer(topic, msg, data.SubTopic)
 }
 
 func (data *MqttConf) connectHandler(client mqtt.Client) {
@@ -46,6 +45,9 @@ func (data *MqttConf) connectHandler(client mqtt.Client) {
 	token.Wait()
 	logger.Info.Printf("subscribed to %q\n", topic)
 	logger.Info.Println("connection to mqtt broker is successful")
+	tokenPub := client.Publish(data.PubTopic+"online", 0, false, "true")
+	tokenPub.Wait()
+
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
@@ -54,9 +56,11 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 
 func StartBroker(data MqttConf) {
 	var wg sync.WaitGroup
+
 	messagePubHandler := data.messageHandler
 	connectHandler := data.connectHandler
 
+	// MQTT INIT //
 	mqttHandler := mqtt.NewClientOptions().
 		AddBroker(fmt.Sprintf("tcp://%s:%d", data.Broker, port)).
 		SetClientID(data.Id).
@@ -70,6 +74,7 @@ func StartBroker(data MqttConf) {
 		SetWill(data.PubTopic+"online", "false", 2, true)
 
 	conn := mqtt.NewClient(mqttHandler)
+
 	for {
 		status := true
 		if token := conn.Connect(); token.Wait() && token.Error() != nil {
@@ -83,13 +88,13 @@ func StartBroker(data MqttConf) {
 		time.Sleep(reconnTime * time.Second)
 	}
 
-	wg.Add(2)
-	go publish(conn, data.PubTopic+"volume", VolumeStatus, pubVolumeTime)
-	go publish(conn, data.PubTopic+"online", ConnectStatus, pubConnectTime)
+	// ADD YOUR PUBLISHERS //
+	wg.Add(1)
+	go publisher(conn, data.PubTopic+"volume", VolumeStatus, pubVolumeTime)
 	wg.Wait()
 }
 
-func publish(client mqtt.Client, topic string, f pubFunc, sleep int) {
+func publisher(client mqtt.Client, topic string, f pubFunc, sleep int) {
 	for {
 		data, err := f()
 		if err != nil {
@@ -103,7 +108,8 @@ func publish(client mqtt.Client, topic string, f pubFunc, sleep int) {
 	}
 }
 
-func executor(topic, msg, subPrefix string) {
+// HANDLER FOR COMMAND IN DIFFERENT TOPICS //
+func executorer(topic, msg, subPrefix string) {
 	logger.Info.Printf("%s recieved in %q\n", msg, topic)
 	switch topic {
 	case subPrefix + "volume":
