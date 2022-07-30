@@ -28,7 +28,7 @@ A simple background service that remotely controls Windows over MQTT.
   - Reboot system
   - Shutdown system
 - Publishing of current volume status
-- Works as a background proccess, so no pop-up windows and no need in nircmd
+- Works as a background process, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
 - Configuration validation and full debug
 - Autoreconnection to MQTT Broker
@@ -69,7 +69,7 @@ A brief description of the layout:
 - `go.sum` is a detailed file of the checksum of direct and indirect dependency required by the module.
 - `main.go` is main file of programm.
 - `docs` contains project documentations.
-- `control` contains main packages for interaction with Win 10 API, each subdirecoty of `control` is a main package.
+- `control` contains main packages for interaction with Win 10 API, each subdirectory of `control` is a main package.
 - `mosquitto` contains mqtt logic package.
 - `tools` contains yaml `configurator` and `logger` packages.
 - `configs` contains example of config.yaml file.
@@ -193,7 +193,7 @@ You can build it by yourself.
 
 ## Future
 
-I will gladly add new staff, if anyone will request!
+I will gladly add new stuff, if anyone will request!
 
 ## Alternativies
 
