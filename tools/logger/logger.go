@@ -11,7 +11,7 @@ var (
 	Error *log.Logger
 )
 
-func LogInit() {
+func init() {
 	file, err := os.OpenFile("warden.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.SetOutput(os.Stdout)

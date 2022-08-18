@@ -15,20 +15,31 @@ func getHostname() (hostname string) {
 		logger.Warn.Println(err)
 		hostname = "default"
 	}
-	logger.Info.Printf("hostname is %s\n", hostname)
 	return
 }
 
 func main() {
-	logger.LogInit()
-
 	logger.Info.Println("")
-	logger.Info.Println("WARDEN STARTED")
+	logger.Info.Println("")
+	logger.Info.Print("WARDENER STARTED")
 
-	cfg := config.ConfInit()
+	cfg, state := config.CmdInit()
+
+	if !state {
+		cfg = config.ConfInit()
+	}
 
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
+
+	logger.Info.Println("---------------------------")
+	logger.Info.Println("сonnection data:")
+	logger.Info.Printf("\targs     - %t\n", state)
+	logger.Info.Printf("\thostname - %s\n", hostname)
+	logger.Info.Printf("\tbroker   - %s\n", cfg.Broker)
+	logger.Info.Printf("\tusername - %s\n", cfg.Username)
+	logger.Info.Printf("\tpassword - %s\n", cfg.Password)
+	logger.Info.Println("---------------------------")
 
 	mqttData := mosquitto.MqttConf{
 		ID:       hostname,
