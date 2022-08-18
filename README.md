@@ -120,12 +120,14 @@ Example file:
 CLI have the same parametres as config file plus one added and if you forget one of them Warden will use default one.
 
 <table>
-<tr><th>Property</th><th>Description</th><th>Default</th><th>Flag</th>
-<tr><td>cli</td><td>CLI status (mandatory if you using cli)</td><td>false</td><td>c</td></tr>
-<tr><td>broker</td><td>URL of the MQTT broker</td><td>localhost</td><td>b</td></tr>
-<tr><td>username</td><td>Username to MQTT broker</td><td></td><td>u</td></tr>
-<tr><td>password</td><td>Password to MQTT broker</td><td></td><td>p</td></tr>
+<tr><th>Property</th><th>Description</th><th>Flag</th><th>Default</th>
+<tr><td>cli</td><td>CLI status</td><td>c</td><td>none</td></tr>
+<tr><td>broker</td><td>URL of the MQTT broker</td><td>b</td><td>localhost</td></tr>
+<tr><td>username</td><td>Username to MQTT broker</td><td>u</td><td>none</td></tr>
+<tr><td>password</td><td>Password to MQTT broker</td><td>p</td><td>none</td></tr>
 </table>
+
+(!!!)You must use cli flag if you using this interface(!!!)
 
 Example:
 
