@@ -117,7 +117,7 @@ Example file:
 
 ### CLI
 
-CLI have the same parametres as config file plus one added and if you forget one of them Warden will use default one.
+CLI have the same parametres as config file plus one added and if you forget one of params Warden will use default one.
 
 <table>
 <tr><th>Property</th><th>Description</th><th>Flag</th><th>Default</th>
