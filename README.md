@@ -89,10 +89,10 @@ If you use source code:
 
 ## Running
 
-Download either GO or EXE file from [Releases page](https://github.com/tiredsosha/warden/releases) and execute it:
+Download either EXE or GO file from [Releases page](https://github.com/tiredsosha/warden/releases) and execute it:
 
-    go run main.go
-    main.exe
+    warden.exe
+    go run main.go (if you wanna start it from source files)
 
 ## Configuration
 
