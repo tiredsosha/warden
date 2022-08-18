@@ -1,3 +1,12 @@
+Warden 1.1.3 Release Notes
+
+IMPROVEMENTS
+
+- Added CLI
+- Added aditional info in log file
+
+---
+
 Warden 1.1.2 Release Notes
 
 IMPROVEMENTS

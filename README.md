@@ -10,6 +10,7 @@ A simple background service that remotely controls Windows over MQTT.
 - [Running](#running)
 - [Configuration](#configuration)
   - [config.yaml](#config.yaml)
+  - [CLI](#cli)
 - [Logging](#logging)
 - [Supported messages](#supported-messages)
   - [Status](#status)
@@ -32,6 +33,7 @@ A simple background service that remotely controls Windows over MQTT.
 - Pretty easy configuration and installation
 - Configuration validation and full debug
 - Autoreconnection to MQTT Broker
+- Command-line interface
 
 ### Layout
 
@@ -98,9 +100,9 @@ Configuration parameters must be placed in configuration files in the working di
 
 <table>
 <tr><th>Property</th><th>Description</th><th>Example</th>
-<tr><td>broker</td><td>URL of the MQTT broker to use</td><td>127.0.0.1</td></tr>
-<tr><td>username</td><td>Username used when connecting to MQTT broker</td><td>admin</td></tr>
-<tr><td>password</td><td>Password used when connecting to MQTT broker</td><td>password</td></tr>
+<tr><td>broker</td><td>URL of the MQTT broker</td><td>127.0.0.1</td></tr>
+<tr><td>username</td><td>Username  to MQTT broker</td><td>admin</td></tr>
+<tr><td>password</td><td>Password to MQTT broker</td><td>password</td></tr>
 </table>
 
 ### config.yaml
@@ -112,6 +114,22 @@ Example file:
     broker: 127.0.0.1
     username: admin
     password: password
+
+### CLI
+
+CLI have the same parametres as config file plus one added and if you forget one of them Warden will use default one.
+
+<table>
+<tr><th>Property</th><th>Description</th><th>Default</th><th>Flag</th>
+<tr><td>cli</td><td>CLI status (mandatory if you using cli)</td><td>false</td><td>c</td></tr>
+<tr><td>broker</td><td>URL of the MQTT broker</td><td>localhost</td><td>b</td></tr>
+<tr><td>username</td><td>Username to MQTT broker</td><td></td><td>u</td></tr>
+<tr><td>password</td><td>Password to MQTT broker</td><td></td><td>p</td></tr>
+</table>
+
+Example:
+
+    warden.exe -c -b 192.168.1.1 -u sasha -p password
 
 ## Logging
 
