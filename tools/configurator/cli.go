@@ -14,8 +14,8 @@ var (
 func init() {
 	cmd = flag.Bool("c", false, "turn args mode")
 	broker = flag.String("b", "localhost", "broker ip")
-	username = flag.String("u", "", "mqtt username")
-	password = flag.String("p", "", "mqtt password")
+	username = flag.String("u", "admin", "mqtt username")
+	password = flag.String("p", "admin", "mqtt password")
 }
 
 func CmdInit() (*conf, bool) {
