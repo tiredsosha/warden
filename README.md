@@ -92,7 +92,7 @@ If you use source code:
 Download either EXE or GO file from [Releases page](https://github.com/tiredsosha/warden/releases) and execute it:
 
     warden.exe
-    go run main.go (start from source files)
+    go run main.go (if you wanna start it from source files)
 
 ## Configuration
 
