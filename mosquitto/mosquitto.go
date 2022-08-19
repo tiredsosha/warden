@@ -43,15 +43,15 @@ func (data *MqttConf) connectHandler(client mqtt.Client) {
 
 	token := client.Subscribe(topic, 1, nil)
 	token.Wait()
-	logger.Info.Printf("subscribed to %q\n", topic)
+	logger.Debug.Printf("publishing to %q\n", data.PubTopic+"#")
+	logger.Debug.Printf("subscribed to %q\n", topic)
 	logger.Info.Println("connection to mqtt broker is successful")
 	tokenPub := client.Publish(data.PubTopic+"online", 0, false, "true")
 	tokenPub.Wait()
-
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-	logger.Error.Printf("mqtt: connection to mqtt broker is lost - %s\n", err)
+	logger.Warn.Printf("mqtt: connection to mqtt broker is lost - %s\n", err)
 }
 
 func StartBroker(data MqttConf) {
@@ -78,7 +78,7 @@ func StartBroker(data MqttConf) {
 	for {
 		status := true
 		if token := conn.Connect(); token.Wait() && token.Error() != nil {
-			logger.Error.Printf("mqtt: can't connect to mqtt broker - %s\n", token.Error())
+			logger.Warn.Printf("mqtt: can't connect to mqtt broker - %s\n", token.Error())
 			status = false
 		}
 
@@ -98,8 +98,7 @@ func publisher(client mqtt.Client, topic string, f pubFunc, sleep int) {
 	for {
 		data, err := f()
 		if err != nil {
-			logger.Warn.Printf("skiping one cycle of publishing to %q\n", topic)
-			logger.Warn.Println(err)
+			logger.Warn.Printf("skiping one cycle of publishing to %q - %s\n", topic, err)
 		} else {
 			token := client.Publish(topic, 0, false, data)
 			token.Wait()
@@ -110,7 +109,7 @@ func publisher(client mqtt.Client, topic string, f pubFunc, sleep int) {
 
 // HANDLER FOR COMMAND IN DIFFERENT TOPICS //
 func executorer(topic, msg, subPrefix string) {
-	logger.Info.Printf("%s recieved in %q\n", msg, topic)
+	logger.Debug.Printf("%s recieved in %q\n", msg, topic)
 	switch topic {
 	case subPrefix + "volume":
 		intMsg, err := strconv.Atoi(msg)
