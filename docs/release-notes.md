@@ -1,3 +1,13 @@
+Warden 1.1.4 Release Notes
+
+IMPROVEMENTS
+
+- Added new CLI flags
+- Changed log file
+- Added nodebug mode
+
+---
+
 Warden 1.1.3 Release Notes
 
 IMPROVEMENTS

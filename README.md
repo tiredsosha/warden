@@ -31,9 +31,10 @@ A simple background service that remotely controls Windows over MQTT.
 - Publishing of current volume status
 - Works as a background process, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
-- Configuration validation and full debug
+- Configuration validation
 - Autoreconnection to MQTT Broker
 - Command-line interface
+- Nice debug
 
 ### Layout
 
@@ -121,17 +122,21 @@ CLI have the same parametres as config file plus one added and if you forget one
 
 <table>
 <tr><th>Property</th><th>Description</th><th>Flag</th><th>Default</th>
-<tr><td>cli</td><td>CLI status</td><td>c</td><td>none</td></tr>
-<tr><td>broker</td><td>URL of the MQTT broker</td><td>b</td><td>localhost</td></tr>
-<tr><td>username</td><td>Username to MQTT broker</td><td>u</td><td>admin</td></tr>
-<tr><td>password</td><td>Password to MQTT broker</td><td>p</td><td>admin</td></tr>
+<tr><td>nodebug</td><td>turns off debug mode</td><td>-n / --nodebug</td><td>none</td></tr>
+<tr><td>config</td><td>overrides config.yaml data with cli config</td><td>-c / --config</td><td>none</td></tr>
+<tr><td>broker</td><td>URL of the MQTT broker</td><td>-b / --broker</td><td>localhost</td></tr>
+<tr><td>username</td><td>Username to MQTT broker</td><td>-u / --user</td><td>admin</td></tr>
+<tr><td>password</td><td>Password to MQTT broker</td><td>-p / --pass</td><td>admin</td></tr>
 </table>
 
-(!!!)You must use cli flag if you using this interface(!!!)
+**(!!!)You must use config flag if you want to override config.yaml(!!!)**
 
 Example:
 
-    warden.exe -c -b 192.168.1.1 -u sasha -p password
+    warden.exe -n
+    warden.exe -c -n -b 192.168.1.1 -u sasha -p password
+    warden.exe --cli --nodebug --broker 192.168.1.1 --user sasha --pass 12345678
+    warden.exe -c -n --broker 192.168.1.1 --user sasha -p 12345678
 
 ## Logging
 

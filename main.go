@@ -11,19 +11,19 @@ import (
 func getHostname() (hostname string) {
 	hostname, err := os.Hostname()
 	if err != nil {
-		logger.Warn.Println("can't get hostname")
-		logger.Warn.Println(err)
+		logger.Warn.Printf("can't get hostname - %s\n", err)
 		hostname = "default"
 	}
 	return
 }
 
 func main() {
-	logger.Info.Println("")
-	logger.Info.Println("")
-	logger.Info.Print("WARDENER STARTED")
+	cfg, state, debug := config.ArgsInit()
 
-	cfg, state := config.CmdInit()
+	logger.LogInit(debug)
+	logger.Debug.Println("")
+	logger.Debug.Println("")
+	logger.Info.Print("WARDENER STARTED")
 
 	if !state {
 		cfg = config.ConfInit()
@@ -32,14 +32,17 @@ func main() {
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
 
-	logger.Info.Println("---------------------------")
-	logger.Info.Println("сonnection data:")
-	logger.Info.Printf("\targs     - %t\n", state)
-	logger.Info.Printf("\thostname - %s\n", hostname)
-	logger.Info.Printf("\tbroker   - %s\n", cfg.Broker)
-	logger.Info.Printf("\tusername - %s\n", cfg.Username)
-	logger.Info.Printf("\tpassword - %s\n", cfg.Password)
-	logger.Info.Println("---------------------------")
+	logger.Debug.Println("---------------------------")
+	logger.Debug.Println("logging data:")
+	logger.Debug.Printf("\tdebug    - %t\n", debug)
+	logger.Debug.Printf("\tcli conf - %t\n", state)
+	logger.Debug.Println("- - - - - - - - - - - - - -")
+	logger.Debug.Println("сonnection data:")
+	logger.Debug.Printf("\thostname - %s\n", hostname)
+	logger.Debug.Printf("\tbroker   - %s\n", cfg.Broker)
+	logger.Debug.Printf("\tusername - %s\n", cfg.Username)
+	logger.Debug.Printf("\tpassword - %s\n", cfg.Password)
+	logger.Debug.Println("---------------------------")
 
 	mqttData := mosquitto.MqttConf{
 		ID:       hostname,
