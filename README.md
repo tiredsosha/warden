@@ -122,7 +122,7 @@ CLI have the same parametres as config file plus one added and if you forget one
 
 <table>
 <tr><th>Property</th><th>Description</th><th>Flag</th><th>Default</th>
-<tr><td>nodebug</td><td>turns off debug mode</td><td>-n / --nodebug</td><td>none</td></tr>
+<tr><td>no debug</td><td>turns off debug mode</td><td>-n / --nodebug</td><td>none</td></tr>
 <tr><td>config</td><td>overrides config.yaml data with cli config</td><td>-c / --config</td><td>none</td></tr>
 <tr><td>broker</td><td>URL of the MQTT broker</td><td>-b / --broker</td><td>localhost</td></tr>
 <tr><td>username</td><td>Username to MQTT broker</td><td>-u / --user</td><td>admin</td></tr>
