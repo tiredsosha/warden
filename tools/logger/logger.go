@@ -28,4 +28,22 @@ func LogInit(debug bool) {
 	Info = log.New(out.(io.Writer), "INFO:  ", log.Ldate|log.Ltime)
 	Warn = log.New(out.(io.Writer), "WARN:  ", log.Ldate|log.Ltime)
 	Error = log.New(out.(io.Writer), "ERROR: ", log.Ldate|log.Ltime)
+
+	Debug.Println("")
+	Debug.Println("")
+	Info.Print("WARDENER STARTED")
+}
+
+func DebugLog(debug, state bool, hostname, broker, username, password string) {
+	Debug.Println("---------------------------")
+	Debug.Println("logging data:")
+	Debug.Printf("\tdebug    - %t\n", debug)
+	Debug.Printf("\tcli conf - %t\n", state)
+	Debug.Println("- - - - - - - - - - - - - -")
+	Debug.Println("сonnection data:")
+	Debug.Printf("\thostname - %s\n", hostname)
+	Debug.Printf("\tbroker   - %s\n", broker)
+	Debug.Printf("\tusername - %s\n", username)
+	Debug.Printf("\tpassword - %s\n", password)
+	Debug.Println("---------------------------")
 }

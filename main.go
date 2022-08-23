@@ -21,9 +21,6 @@ func main() {
 	cfg, state, debug := config.ArgsInit()
 
 	logger.LogInit(debug)
-	logger.Debug.Println("")
-	logger.Debug.Println("")
-	logger.Info.Print("WARDENER STARTED")
 
 	if !state {
 		cfg = config.ConfInit()
@@ -32,17 +29,7 @@ func main() {
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
 
-	logger.Debug.Println("---------------------------")
-	logger.Debug.Println("logging data:")
-	logger.Debug.Printf("\tdebug    - %t\n", debug)
-	logger.Debug.Printf("\tcli conf - %t\n", state)
-	logger.Debug.Println("- - - - - - - - - - - - - -")
-	logger.Debug.Println("сonnection data:")
-	logger.Debug.Printf("\thostname - %s\n", hostname)
-	logger.Debug.Printf("\tbroker   - %s\n", cfg.Broker)
-	logger.Debug.Printf("\tusername - %s\n", cfg.Username)
-	logger.Debug.Printf("\tpassword - %s\n", cfg.Password)
-	logger.Debug.Println("---------------------------")
+	logger.DebugLog(debug, state, hostname, cfg.Broker, cfg.Password, cfg.Username)
 
 	mqttData := mosquitto.MqttConf{
 		ID:       hostname,
