@@ -12,6 +12,12 @@ func VolumeStatus() (string, error) {
 	return status, err
 }
 
+func MuteStatus() (string, error) {
+	mute, err := sound.GetMute()
+	status := strconv.FormatBool(mute)
+	return status, err
+}
+
 /*
 default sensor func shoud look like it:
 

@@ -17,7 +17,8 @@ const (
 	port          = 1883
 	keyLifeTime   = 2  // minute
 	reconnTime    = 20 // sec
-	pubVolumeTime = 5
+	pubVolumeTime = 5  // sec
+	pubMuteTime   = 10 // sec
 )
 
 type pubFunc func() (string, error)
@@ -46,7 +47,7 @@ func (data *MqttConf) connectHandler(client mqtt.Client) {
 	logger.Debug.Printf("publishing to %q\n", data.PubTopic+"#")
 	logger.Debug.Printf("subscribed to %q\n", topic)
 	logger.Info.Println("connection to mqtt broker is successful")
-	tokenPub := client.Publish(data.PubTopic+"online", 0, false, "true")
+	tokenPub := client.Publish(data.PubTopic+"online", 0, true, "true")
 	tokenPub.Wait()
 }
 
@@ -89,8 +90,9 @@ func StartBroker(data MqttConf) {
 	}
 
 	// ADD YOUR PUBLISHERS //
-	wg.Add(1)
+	wg.Add(2)
 	go publisher(conn, data.PubTopic+"volume", VolumeStatus, pubVolumeTime)
+	go publisher(conn, data.PubTopic+"muted", MuteStatus, pubMuteTime)
 	wg.Wait()
 }
 
@@ -129,5 +131,12 @@ func executorer(topic, msg, subPrefix string) {
 		power.Shutdown()
 	case subPrefix + "reboot":
 		power.Reboot()
+	case subPrefix + "display":
+		boolMsg, err := strconv.ParseBool(msg)
+		if err == nil {
+			power.Display(boolMsg)
+		} else {
+			logger.Warn.Println("message in mute topic must be true or false, skiping command")
+		}
 	}
 }
