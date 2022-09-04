@@ -28,7 +28,8 @@ A simple background service that remotely controls Windows over MQTT.
   - Change volume level
   - Reboot system
   - Shutdown system
-- Publishing of current volume status
+- Publishing a current volume status
+- Publishing a mute status
 - Works as a background process, so no pop-up windows and no need in nircmd
 - Pretty easy configuration and installation
 - Configuration validation
@@ -173,6 +174,14 @@ true - alive, false - dead.
 **Persistent:** no<br>
 
 Send current master volume status every 5 seconds.
+
+---
+
+**Topic:** warden/PC_HOSTNAME/status/muted<br>
+**Payload:** bool<br>
+**Persistent:** no<br>
+
+Send current mute status every 10 seconds.
 
 ---
 

@@ -37,6 +37,24 @@ func SetVolume(volume int) {
 	}
 }
 
+func GetMute() (bool, error) {
+	mute, err := invoke(func(aev *wca.IAudioEndpointVolume) (interface{}, error) {
+		var muted bool
+		err := aev.GetMute(&muted)
+		return muted, err
+	})
+
+	if err != nil {
+		logger.Warn.Printf("can't get mute status - %s\n", err)
+	}
+
+	if mute == nil {
+		return false, err
+	}
+
+	return mute.(bool), err
+}
+
 func Mute(state bool) {
 	_, err := invoke(func(aev *wca.IAudioEndpointVolume) (interface{}, error) {
 		err := aev.SetMute(state, nil)
