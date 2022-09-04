@@ -3,7 +3,7 @@ Warden 1.2.0-beta.1 Release Notes
 IMPROVEMENTS
 
 - Added new status - mute
-- Added test support for diplay control
+- Added test support for display control
 - No Windows popup messages when you reboot/restart system
 
 FIXES
