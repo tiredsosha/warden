@@ -9,7 +9,7 @@ import (
 )
 
 func Reboot() {
-	cmd := "shutdown /f /r"
+	cmd := "shutdown /f /r /t 0"
 
 	exe := exec.Command("cmd", "/C", cmd)
 	err := exe.Run()
@@ -20,7 +20,7 @@ func Reboot() {
 }
 
 func Shutdown() {
-	cmd := "shutdown /f"
+	cmd := "shutdown /f /s /t 0"
 
 	exe := exec.Command("cmd", "/C", cmd)
 	err := exe.Run()
