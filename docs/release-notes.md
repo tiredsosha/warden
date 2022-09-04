@@ -1,3 +1,18 @@
+Warden 1.2.0-beta.1 Release Notes
+
+IMPROVEMENTS
+
+- Added new status - mute
+- Added test support for diplay control
+- No Windows popup messages when you reboot/restart system
+
+FIXES
+
+- Shutdown function turns off pc, not logs it out
+- Online status wasn't retained function
+
+---
+
 Warden 1.1.4 Release Notes
 
 IMPROVEMENTS
