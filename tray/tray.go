@@ -1,16 +1,13 @@
 package tray
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/getlantern/systray"
 	"github.com/tiredsosha/warden/tools/logger"
 )
 
 func onReady() {
-	icon := getIcon("docs/media/warden_icon.ico")
-	systray.SetIcon(icon)
+
+	systray.SetIcon(iconBytes)
 	systray.SetTitle("Warden")
 
 	systray.SetTooltip("Warden")
@@ -23,14 +20,6 @@ func onReady() {
 
 func onExit() {
 	logger.Error.Fatal("EXITING MANUALLY")
-}
-
-func getIcon(icon string) []byte {
-	iconBytes, err := os.ReadFile(icon)
-	if err != nil {
-		fmt.Print(err)
-	}
-	return iconBytes
 }
 
 func TrayStart() {
