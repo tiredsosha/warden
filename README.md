@@ -31,6 +31,7 @@ A simple background service that remotely controls Windows over MQTT.
 - Publishing a current volume status
 - Publishing a mute status
 - Works as a background process, so no pop-up windows and no need in nircmd
+- Cute system tray icon with quit function
 - Pretty easy configuration and installation
 - Configuration validation
 - Autoreconnection to MQTT Broker
@@ -58,6 +59,8 @@ A simple background service that remotely controls Windows over MQTT.
 │   │   └── configurator.go
 │   └── logger
 │       └── logger.go
+├── tray
+│   └── tray.go
 ├── mosquitto
 │   ├── mosquitto.go
 │   │  
@@ -75,6 +78,7 @@ A brief description of the layout:
 - `docs` contains project documentations.
 - `control` contains main packages for interaction with Win 10 API, each subdirectory of `control` is a main package.
 - `mosquitto` contains mqtt logic package.
+- `tray` contains system tray app logic package.
 - `tools` contains yaml `configurator` and `logger` packages.
 - `configs` contains example of config.yaml file.
 

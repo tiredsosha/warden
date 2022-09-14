@@ -2,7 +2,7 @@ package configurator
 
 import (
 	"errors"
-	"io/ioutil"
+	"os"
 	"reflect"
 
 	"github.com/tiredsosha/warden/tools/logger"
@@ -16,7 +16,7 @@ type conf struct {
 }
 
 func getConf(file string, cnf interface{}) error {
-	yamlFile, err := ioutil.ReadFile(file)
+	yamlFile, err := os.ReadFile(file)
 	if err == nil {
 		err = yaml.Unmarshal(yamlFile, cnf)
 	}

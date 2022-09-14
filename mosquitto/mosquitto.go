@@ -18,7 +18,7 @@ const (
 	keyLifeTime   = 2  // minute
 	reconnTime    = 20 // sec
 	pubVolumeTime = 5  // sec
-	pubMuteTime   = 10 // sec
+	pubMuteTime   = 7  // sec
 )
 
 type pubFunc func() (string, error)
@@ -131,12 +131,12 @@ func executorer(topic, msg, subPrefix string) {
 		power.Shutdown()
 	case subPrefix + "reboot":
 		power.Reboot()
-	case subPrefix + "display":
-		boolMsg, err := strconv.ParseBool(msg)
-		if err == nil {
-			power.Display(boolMsg)
-		} else {
-			logger.Warn.Println("message in mute topic must be true or false, skiping command")
-		}
+		// case subPrefix + "display":
+		// 	boolMsg, err := strconv.ParseBool(msg)
+		// 	if err == nil {
+		// 		power.Display(boolMsg)
+		// 	} else {
+		// 		logger.Warn.Println("message in mute topic must be true or false, skiping command")
+		// 	}
 	}
 }
