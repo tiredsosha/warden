@@ -60,7 +60,9 @@ A simple background service that remotely controls Windows over MQTT.
 │   └── logger
 │       └── logger.go
 ├── tray
-│   └── tray.go
+│   ├── tray.go
+│   │  
+│   └── icon.go
 ├── mosquitto
 │   ├── mosquitto.go
 │   │  
