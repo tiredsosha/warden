@@ -1,4 +1,4 @@
-Warden 1.1.5 Release Notes
+Warden 1.1.6 Release Notes
 
 IMPROVEMENTS
 
@@ -11,6 +11,7 @@ FIXES
 
 - Shutdown function turns off pc, not logs it out
 - Online status wasn't retained function
+- Password and username were mixed in log file
 
 ---
 
