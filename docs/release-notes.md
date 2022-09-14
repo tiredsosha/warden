@@ -1,3 +1,19 @@
+Warden 1.1.5 Release Notes
+
+IMPROVEMENTS
+
+- Added new status - mute
+- No Windows popup messages when you reboot/restart system
+- Nice system tray icon
+- Warden now you be exited thougth systen tray icon
+
+FIXES
+
+- Shutdown function turns off pc, not logs it out
+- Online status wasn't retained function
+
+---
+
 Warden 1.2.0-beta.1 Release Notes
 
 IMPROVEMENTS

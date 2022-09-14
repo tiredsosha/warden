@@ -6,6 +6,7 @@ import (
 	"github.com/tiredsosha/warden/mosquitto"
 	config "github.com/tiredsosha/warden/tools/configurator"
 	"github.com/tiredsosha/warden/tools/logger"
+	"github.com/tiredsosha/warden/tray"
 )
 
 func getHostname() (hostname string) {
@@ -39,5 +40,6 @@ func main() {
 		SubTopic: topicPrefix + "commands/",
 		PubTopic: topicPrefix + "status/",
 	}
+	go tray.TrayStart()
 	mosquitto.StartBroker(mqttData)
 }
