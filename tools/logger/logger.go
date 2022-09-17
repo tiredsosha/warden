@@ -40,17 +40,20 @@ func LogInit(debug bool) {
 	Info.Print("WARDENER STARTED")
 }
 
-func DebugLog(debug, state bool, hostname, broker, username, password string) {
+func DebugLog(version string, debug, state bool, hostname, broker, username, password string) {
 	Debug.Println("---------------------------")
+	Debug.Println("common data:")
+	Debug.Printf("\t\tversion  - %s\n", version)
+	Debug.Println("- - - - - - - - - - - - - -")
 	Debug.Println("logging data:")
-	Debug.Printf("\tdebug    - %t\n", debug)
-	Debug.Printf("\tcli conf - %t\n", state)
+	Debug.Printf("\t\tdebug    - %t\n", debug)
+	Debug.Printf("\t\tcli conf - %t\n", state)
 	Debug.Println("- - - - - - - - - - - - - -")
 	Debug.Println("сonnection data:")
-	Debug.Printf("\thostname - %s\n", hostname)
-	Debug.Printf("\tbroker   - %s\n", broker)
-	Debug.Printf("\tusername - %s\n", username)
-	Debug.Printf("\tpassword - %s\n", password)
+	Debug.Printf("\t\thostname - %s\n", hostname)
+	Debug.Printf("\t\tbroker   - %s\n", broker)
+	Debug.Printf("\t\tusername - %s\n", username)
+	Debug.Printf("\t\tpassword - %s\n", password)
 	Debug.Println("---------------------------")
 }
 
