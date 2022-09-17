@@ -1,3 +1,11 @@
+Warden 1.2.3 Release Notes
+
+IMPROVEMENTS
+
+- Logs version info
+
+---
+
 Warden 1.2.2 Release Notes
 
 IMPROVEMENTS

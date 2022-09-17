@@ -9,6 +9,10 @@ import (
 	"github.com/tiredsosha/warden/tray"
 )
 
+const (
+	version = "1.2.3"
+)
+
 func getHostname() (hostname string) {
 	hostname, err := os.Hostname()
 	if err != nil {
@@ -30,7 +34,7 @@ func main() {
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
 
-	logger.DebugLog(debug, state, hostname, cfg.Broker, cfg.Username, cfg.Password)
+	logger.DebugLog(version, debug, state, hostname, cfg.Broker, cfg.Username, cfg.Password)
 
 	go tray.TrayStart()
 
