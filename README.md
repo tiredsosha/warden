@@ -149,7 +149,7 @@ Example:
 
 ## Logging
 
-Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory.  
+Warden starts logging immediately after launch. It makes **warden.log** file in the current working directory and overwrite file every 7 days
 ![Snipset of log file](./docs/media/log.png)
 
 ## Supported messages

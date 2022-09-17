@@ -1,8 +1,8 @@
-Warden 1.2.1 Release Notes
+Warden 1.2.2 Release Notes
 
 IMPROVEMENTS
 
-- Logs ovverrides itself every 7 days
+- Logs overwrite itself every 7 days
 
 ---
 
