@@ -1,3 +1,11 @@
+Warden 1.2.2 Release Notes
+
+IMPROVEMENTS
+
+- Logs overwrite itself every 7 days
+
+---
+
 Warden 1.2.1 Release Notes
 
 IMPROVEMENTS
