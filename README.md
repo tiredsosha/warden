@@ -31,7 +31,7 @@ A simple background service that remotely controls Windows over MQTT.
 - Publishing a current volume status
 - Publishing a mute status
 - Works as a background process, so no pop-up windows and no need in nircmd
-- Cute system tray icon with quit function
+- System tray icon with quit function and color notification of the MQTT connection
 - Pretty easy configuration and installation
 - Configuration validation
 - Autoreconnection to MQTT Broker
@@ -60,7 +60,9 @@ A simple background service that remotely controls Windows over MQTT.
 │   └── logger
 │       └── logger.go
 ├── tray
-│   └── tray.go
+│   ├── tray.go
+│   │  
+│   └── icon.go
 ├── mosquitto
 │   ├── mosquitto.go
 │   │  
@@ -113,13 +115,15 @@ Configuration parameters must be placed in configuration files in the working di
 
 ### config.yaml
 
-Warden will look for this file in the current working directory (directory from where you launched Warden). Create **config.yaml** file and put desired parameters into it. Or just copy an example of this file from config folder in the repo.
+Warden will look for this file in the current working directory (directory from where you launched Warden). If there is no conf file Warnen will create default file. Change this file or create **config.yaml** file and put desired parameters into it. Or just copy an example of this file from config folder in the repo.
 
 Example file:
 
     broker: 127.0.0.1
     username: admin
     password: password
+
+By the way, Warden will validate you config before starting and notice you whether you forget something!
 
 ### CLI
 

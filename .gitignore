@@ -62,5 +62,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# Windows manifest files
+manifest.xml
+/build
+
 # Windows shortcuts
 *.lnk
