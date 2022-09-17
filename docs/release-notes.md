@@ -2,6 +2,14 @@ Warden 1.2.1 Release Notes
 
 IMPROVEMENTS
 
+- Logs ovverrides itself every 7 days
+
+---
+
+Warden 1.2.1 Release Notes
+
+IMPROVEMENTS
+
 - Icon on exe
 - System tray now have color notification of mqtt status
 - If no conf file Warden will make default one

@@ -4,6 +4,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"syscall"
+	"time"
 )
 
 var (
@@ -18,6 +20,10 @@ func LogInit(debug bool) {
 	out = io.Discard
 
 	if debug {
+		deleteLog := logCreation()
+		if deleteLog {
+			os.Remove("warden.log")
+		}
 		file, err := os.OpenFile("warden.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 		if err == nil {
 			out = file
@@ -46,4 +52,19 @@ func DebugLog(debug, state bool, hostname, broker, username, password string) {
 	Debug.Printf("\tusername - %s\n", username)
 	Debug.Printf("\tpassword - %s\n", password)
 	Debug.Println("---------------------------")
+}
+
+func logCreation() bool {
+	var deleteLog bool = false
+
+	log, _ := os.Stat("warden.log")
+	createTime := time.Unix(0, log.Sys().(*syscall.Win32FileAttributeData).CreationTime.Nanoseconds())
+	currTime := time.Now()
+	diff := currTime.Sub(createTime).Milliseconds()
+
+	if diff > 604800000 {
+		deleteLog = true
+	}
+
+	return deleteLog
 }

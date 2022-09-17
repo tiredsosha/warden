@@ -65,6 +65,7 @@ $RECYCLE.BIN/
 # Windows manifest files
 manifest.xml
 /build
+*.syso
 
 # Windows shortcuts
 *.lnk
