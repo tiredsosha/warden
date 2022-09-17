@@ -2,8 +2,10 @@ package configurator
 
 import (
 	"errors"
+	"io/ioutil"
 	"os"
 	"reflect"
+	"strings"
 
 	"github.com/tiredsosha/warden/tools/logger"
 	"gopkg.in/yaml.v3"
@@ -32,7 +34,7 @@ func validateConf(cfg *conf) error {
 		field := typeOfS.Field(i).Name
 		value := v.Field(i).Interface()
 		if value == "" {
-			err = errors.New("config: " + field + " field is emtpy/nonexist")
+			err = errors.New("config: " + strings.ToLower(field) + " field is emtpy/nonexist")
 			break
 		}
 		err = nil
@@ -40,11 +42,27 @@ func validateConf(cfg *conf) error {
 	return err
 }
 
+func confFile() *conf {
+	logger.Warn.Println("making a default config")
+	confDef := conf{
+		Broker:   "127.0.0.1",
+		Username: "admin",
+		Password: "password",
+	}
+
+	yamlData, _ := yaml.Marshal(confDef)
+	err := ioutil.WriteFile("config.yaml", yamlData, 0644)
+	if err != nil {
+		logger.Error.Fatal("can't to write default conf into the file")
+	}
+	return &confDef
+}
+
 func ConfInit() *conf {
 	cfg := &conf{}
 	if err := getConf("config.yaml", cfg); err != nil {
 		logger.Error.Println(err)
-		logger.Error.Fatal("EXITING")
+		cfg = confFile()
 	}
 	if err := validateConf(cfg); err != nil {
 		logger.Error.Println(err)

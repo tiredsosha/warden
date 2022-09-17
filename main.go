@@ -32,6 +32,8 @@ func main() {
 
 	logger.DebugLog(debug, state, hostname, cfg.Broker, cfg.Username, cfg.Password)
 
+	go tray.TrayStart()
+
 	mqttData := mosquitto.MqttConf{
 		ID:       hostname,
 		Broker:   cfg.Broker,
@@ -39,7 +41,8 @@ func main() {
 		Password: cfg.Password,
 		SubTopic: topicPrefix + "commands/",
 		PubTopic: topicPrefix + "status/",
+		Icon:     &tray.Conn,
 	}
-	go tray.TrayStart()
+
 	mosquitto.StartBroker(mqttData)
 }

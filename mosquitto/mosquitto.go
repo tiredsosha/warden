@@ -30,6 +30,7 @@ type MqttConf struct {
 	Password string
 	SubTopic string
 	PubTopic string
+	Icon     *bool
 }
 
 func (data *MqttConf) messageHandler(client mqtt.Client, msgHand mqtt.Message) {
@@ -49,17 +50,24 @@ func (data *MqttConf) connectHandler(client mqtt.Client) {
 	logger.Info.Println("connection to mqtt broker is successful")
 	tokenPub := client.Publish(data.PubTopic+"online", 0, true, "true")
 	tokenPub.Wait()
+	*data.Icon = true
 }
 
-var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
+func (data *MqttConf) lostHandler(client mqtt.Client, err error) {
 	logger.Warn.Printf("mqtt: connection to mqtt broker is lost - %s\n", err)
+	*data.Icon = false
 }
+
+// var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
+// 	logger.Warn.Printf("mqtt: connection to mqtt broker is lost - %s\n", err)
+// }
 
 func StartBroker(data MqttConf) {
 	var wg sync.WaitGroup
 
 	messagePubHandler := data.messageHandler
 	connectHandler := data.connectHandler
+	connectLostHandler := data.lostHandler
 
 	// MQTT INIT //
 	mqttHandler := mqtt.NewClientOptions().
