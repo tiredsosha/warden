@@ -58,10 +58,6 @@ func (data *MqttConf) lostHandler(client mqtt.Client, err error) {
 	*data.Icon = false
 }
 
-// var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
-// 	logger.Warn.Printf("mqtt: connection to mqtt broker is lost - %s\n", err)
-// }
-
 func StartBroker(data MqttConf) {
 	var wg sync.WaitGroup
 
@@ -139,12 +135,12 @@ func executorer(topic, msg, subPrefix string) {
 		power.Shutdown()
 	case subPrefix + "reboot":
 		power.Reboot()
-		// case subPrefix + "display":
-		// 	boolMsg, err := strconv.ParseBool(msg)
-		// 	if err == nil {
-		// 		power.Display(boolMsg)
-		// 	} else {
-		// 		logger.Warn.Println("message in mute topic must be true or false, skiping command")
-		// 	}
+	case subPrefix + "sleep":
+		boolMsg, err := strconv.ParseBool(msg)
+		if err == nil {
+			power.Sleep(boolMsg)
+		} else {
+			logger.Warn.Println("message in mute topic must be true or false, skiping command")
+		}
 	}
 }
