@@ -181,7 +181,7 @@ Example valid message payloads:
 **Payload:** bool<br>
 **Persistent:** yes<br>
 
-true - alive, false - dead.
+"true" - alive<br>"false" - dead.
 
 ---
 
@@ -238,14 +238,14 @@ Trigger changes master volume of system.
 **Topic:** warden/PC_HOSTNAME/commands/mute<br>
 **Payload:** boolean
 
-"true" - trigger mutes system volume. "false" - trigger unmutes system volume.
+"true" - trigger mutes system volume<br>"false" - trigger unmutes system volume.
 
 ---
 
 **Topic:** warden/PC_HOSTNAME/commands/apps<br>
 **Payload:** string
 
-"config" - turns off all of apps from config file
+"config" - turns off all of apps from config file<br>
 "app.exe" - turns off any specified app
 
 ---
