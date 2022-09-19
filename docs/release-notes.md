@@ -4,6 +4,11 @@ IMPROVEMENTS
 
 - Support for quiting applications
 - Support of puting pc to sleep
+- Add apps list in logging data
+
+FIXES
+
+- Warden didn't created log file
 
 ---
 
