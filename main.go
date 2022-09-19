@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	version = "1.2.3"
+	version = "1.2.4"
 )
 
 func getHostname() (hostname string) {
@@ -46,6 +46,7 @@ func main() {
 		SubTopic: topicPrefix + "commands/",
 		PubTopic: topicPrefix + "status/",
 		Icon:     &tray.Conn,
+		Apps:     cfg.Apps,
 	}
 
 	mosquitto.StartBroker(mqttData)

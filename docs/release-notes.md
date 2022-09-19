@@ -1,3 +1,11 @@
+Warden 1.2.4 Release Notes
+
+IMPROVEMENTS
+
+- Support for quiting applications
+
+---
+
 Warden 1.2.3 Release Notes
 
 IMPROVEMENTS

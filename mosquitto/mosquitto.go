@@ -8,6 +8,7 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/tiredsosha/warden/control/app"
 	"github.com/tiredsosha/warden/control/power"
 	"github.com/tiredsosha/warden/control/sound"
 	"github.com/tiredsosha/warden/tools/logger"
@@ -31,12 +32,13 @@ type MqttConf struct {
 	SubTopic string
 	PubTopic string
 	Icon     *bool
+	Apps     []string
 }
 
 func (data *MqttConf) messageHandler(client mqtt.Client, msgHand mqtt.Message) {
 	topic := msgHand.Topic()
 	msg := strings.TrimSpace(string(msgHand.Payload()))
-	executorer(topic, msg, data.SubTopic)
+	executor(topic, msg, data.SubTopic, data.Apps)
 }
 
 func (data *MqttConf) connectHandler(client mqtt.Client) {
@@ -114,7 +116,7 @@ func publisher(client mqtt.Client, topic string, f pubFunc, sleep int) {
 }
 
 // HANDLER FOR COMMAND IN DIFFERENT TOPICS //
-func executorer(topic, msg, subPrefix string) {
+func executor(topic, msg, subPrefix string, apps []string) {
 	logger.Debug.Printf("%s recieved in %q\n", msg, topic)
 	switch topic {
 	case subPrefix + "volume":
@@ -141,6 +143,14 @@ func executorer(topic, msg, subPrefix string) {
 			power.Sleep(boolMsg)
 		} else {
 			logger.Warn.Println("message in mute topic must be true or false, skiping command")
+		}
+	case subPrefix + "apps":
+		if msg == "config" {
+			for i := 0; i < len(apps); i++ {
+				app.Quit(apps[i])
+			}
+		} else {
+			app.Quit(msg)
 		}
 	}
 }
