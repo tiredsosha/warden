@@ -40,10 +40,11 @@ func LogInit(debug bool) {
 	Info.Print("WARDENER STARTED")
 }
 
-func DebugLog(version string, debug, state bool, hostname, broker, username, password string) {
+func DebugLog(version string, debug, state bool, hostname, broker, username, password string, apps []string) {
 	Debug.Println("---------------------------")
 	Debug.Println("common data:")
 	Debug.Printf("\t\tversion  - %s\n", version)
+	Debug.Printf("\t\tapps     - %s\n", apps)
 	Debug.Println("- - - - - - - - - - - - - -")
 	Debug.Println("logging data:")
 	Debug.Printf("\t\tdebug    - %t\n", debug)
@@ -60,14 +61,14 @@ func DebugLog(version string, debug, state bool, hostname, broker, username, pas
 func logCreation() bool {
 	var deleteLog bool = false
 
-	log, _ := os.Stat("warden.log")
-	createTime := time.Unix(0, log.Sys().(*syscall.Win32FileAttributeData).CreationTime.Nanoseconds())
-	currTime := time.Now()
-	diff := currTime.Sub(createTime).Milliseconds()
+	if log, err := os.Stat("warden.log"); err == nil {
+		createTime := time.Unix(0, log.Sys().(*syscall.Win32FileAttributeData).CreationTime.Nanoseconds())
+		currTime := time.Now()
+		diff := currTime.Sub(createTime).Milliseconds()
 
-	if diff > 604800000 {
-		deleteLog = true
+		if diff > 604800000 {
+			deleteLog = true
+		}
 	}
-
 	return deleteLog
 }

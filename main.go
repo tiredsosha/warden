@@ -34,7 +34,7 @@ func main() {
 	hostname := getHostname()
 	topicPrefix := "warden/" + hostname + "/"
 
-	logger.DebugLog(version, debug, state, hostname, cfg.Broker, cfg.Username, cfg.Password)
+	logger.DebugLog(version, debug, state, hostname, cfg.Broker, cfg.Username, cfg.Password, cfg.Apps)
 
 	go tray.TrayStart()
 
