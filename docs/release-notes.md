@@ -3,6 +3,7 @@ Warden 1.2.4 Release Notes
 IMPROVEMENTS
 
 - Support for quiting applications
+- Support of puting pc to sleep
 
 ---
 
