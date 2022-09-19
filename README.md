@@ -28,6 +28,8 @@ A simple background service that remotely controls Windows over MQTT.
   - Change volume level
   - Reboot system
   - Shutdown system
+  - Sleep system
+  - Turning off apps
 - Publishing a current volume status
 - Publishing a mute status
 - Works as a background process, so no pop-up windows and no need in nircmd
@@ -52,6 +54,8 @@ A simple background service that remotely controls Windows over MQTT.
 ├── control
 │   ├── power
 │   │   └── power.go
+│   ├── app
+│   │   └── app.go
 │   └── sound
 │       └── sound.go
 ├── tools
@@ -107,10 +111,11 @@ Download either EXE or GO file from [Releases page](https://github.com/tiredsosh
 Configuration parameters must be placed in configuration files in the working directory from where you launch Warden.
 
 <table>
-<tr><th>Property</th><th>Description</th><th>Example</th>
-<tr><td>broker</td><td>URL of the MQTT broker</td><td>127.0.0.1</td></tr>
-<tr><td>username</td><td>Username  to MQTT broker</td><td>admin</td></tr>
-<tr><td>password</td><td>Password to MQTT broker</td><td>password</td></tr>
+<tr><th>Property</th><th>Description</th><th>Example</th><th>Mandatory</th>
+<tr><td>broker</td><td>URL of the MQTT broker</td><td>127.0.0.1</td><td>yes</td></tr>
+<tr><td>username</td><td>Username  to MQTT broker</td><td>admin</td><td>yes</td></tr>
+<tr><td>password</td><td>Password to MQTT broker</td><td>password</td><td>yes</td></tr>
+<tr><td>apps</td><td>Apps list for turning off</td><td>app.exe</td><td>no</td></tr>
 </table>
 
 ### config.yaml
@@ -122,6 +127,9 @@ Example file:
     broker: 127.0.0.1
     username: admin
     password: password
+    apps:
+      - game.exe
+      - app.exe
 
 By the way, Warden will validate you config before starting and notice you whether you forget something!
 
@@ -181,7 +189,7 @@ true - alive, false - dead.
 **Payload:** int in range 0-100<br>
 **Persistent:** no<br>
 
-Send current master volume status every 5 seconds.
+Send current master volume status every 3 seconds.
 
 ---
 
@@ -189,7 +197,7 @@ Send current master volume status every 5 seconds.
 **Payload:** bool<br>
 **Persistent:** no<br>
 
-Send current mute status every 10 seconds.
+Send current mute status every 5 seconds.
 
 ---
 
@@ -213,6 +221,13 @@ Trigger immediate system reboot.
 
 ---
 
+**Topic:** warden/PC_HOSTNAME/commands/sleep<br>
+**Payload:** -
+
+Trigger immediate system sleep.
+
+---
+
 **Topic:** warden/PC_HOSTNAME/commands/volume<br>
 **Payload:** int in range 0-100<br>
 
@@ -224,6 +239,14 @@ Trigger changes master volume of system.
 **Payload:** boolean
 
 "true" - trigger mutes system volume. "false" - trigger unmutes system volume.
+
+---
+
+**Topic:** warden/PC_HOSTNAME/commands/apps<br>
+**Payload:** string
+
+"config" - turns off all of apps from config file
+"app.exe" - turns off any specified app
 
 ---
 

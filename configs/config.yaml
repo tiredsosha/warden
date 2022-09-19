@@ -1,3 +1,6 @@
-broker: localhost
+broker: 127.0.0.1
 username: admin
 password: hello88io
+apps:
+  - game.exe
+  - app.exe

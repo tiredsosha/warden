@@ -2,7 +2,6 @@ package configurator
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 	"reflect"
 	"strings"
@@ -12,9 +11,10 @@ import (
 )
 
 type conf struct {
-	Broker   string `yaml:"broker"`
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
+	Broker   string   `yaml:"broker"`
+	Username string   `yaml:"username"`
+	Password string   `yaml:"password"`
+	Apps     []string `yaml:"apps,omitempty"`
 }
 
 func getConf(file string, cnf interface{}) error {
@@ -22,6 +22,7 @@ func getConf(file string, cnf interface{}) error {
 	if err == nil {
 		err = yaml.Unmarshal(yamlFile, cnf)
 	}
+
 	return err
 }
 
@@ -48,10 +49,11 @@ func confFile() *conf {
 		Broker:   "127.0.0.1",
 		Username: "admin",
 		Password: "password",
+		Apps:     []string{"game.exe", "app.exe"},
 	}
 
 	yamlData, _ := yaml.Marshal(confDef)
-	err := ioutil.WriteFile("config.yaml", yamlData, 0644)
+	err := os.WriteFile("config.yaml", yamlData, 0644)
 	if err != nil {
 		logger.Error.Fatal("can't to write default conf into the file")
 	}
@@ -64,6 +66,7 @@ func ConfInit() *conf {
 		logger.Error.Println(err)
 		cfg = confFile()
 	}
+
 	if err := validateConf(cfg); err != nil {
 		logger.Error.Println(err)
 		logger.Error.Fatal("EXITING")
