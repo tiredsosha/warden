@@ -8,7 +8,7 @@ IMPROVEMENTS
 
 FIXES
 
-- Warden didn't created log file
+- Warden didn't created log file from v1.2.3
 
 ---
 
