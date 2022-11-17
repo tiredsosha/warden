@@ -30,8 +30,8 @@ require (
 	github.com/getlantern/systray v1.2.1
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e
-	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
+	golang.org/x/net v0.0.0-20220919171627-f8f703f97925 // indirect
 	golang.org/x/sync v0.0.0-20220907140024-f12130a52804 // indirect
-	golang.org/x/sys v0.0.0-20220915200043-7b5979e65e41 // indirect
+	golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
