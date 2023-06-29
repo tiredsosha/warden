@@ -77,7 +77,7 @@ func StartBroker(data MqttConf) {
 		SetDefaultPublishHandler(messagePubHandler).
 		SetConnectionLostHandler(connectLostHandler).
 		SetOnConnectHandler(connectHandler).
-		SetKeepAlive(keyLifeTime).
+		SetKeepAlive(keyLifeTime*time.Minute).
 		SetWill(data.PubTopic+"online", "false", 2, true)
 
 	conn := mqtt.NewClient(mqttHandler)
