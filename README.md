@@ -2,6 +2,8 @@
 
 A simple background service that remotely controls Windows over MQTT.
 
+EasyStaff Verification code - UIСQICHKX
+
 **Table of Contents**
 
 - [Features](#features)
